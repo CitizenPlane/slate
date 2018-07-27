@@ -167,6 +167,89 @@ Parameter | Type | Status | Description
 origin | *string* | **required** | An uppercase string of comma separated iata codes departure airports (can also be a single string).
 nearby | *string* | *optional* | If nearby airports (up to a distance of 100km) should be taken into account, set the nearby parameter to `true`. Defaults to `false`.
 
+## Retrieve all flights
+
+> Example request
+
+```shell
+curl "https://booking-api.citizenplane.com/flights/all"
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer {your_api_token}"
+```
+
+```javascript--nodejs
+const rp = require("request-promise")
+
+const getFlights = async () => {
+  try {
+    const flights = await rp({
+      method: "GET",
+      uri: "https://booking-api.citizenplane.com/flights/all",
+      headers: {
+	Authorization: "Bearer {your_api_token}"
+      }
+    })
+    return flights
+  } catch (err) {
+    console.log(err)
+ }
+}
+```
+
+> Example response
+
+```json
+[
+  {
+    "flight_number": "SE56",
+    "online_price": "500.00",
+    "available_seats": 5,
+    "departure_date": "2018-08-10T10:20:00.000Z",
+    "arrival_date": "2018-08-11T21:15:00.000Z",
+    "luggage": 20,
+    "origin": {
+      "iata_code": "CDG",
+      "city_name": "Paris",
+      "country_name": "France"
+    },
+    "destination": {
+      "iata_code": "CUN",
+      "city_name": "Cancun",
+      "country_name": "Mexico"
+    }
+  },
+  {
+    "flight_number": "T5462",
+    "online_price": "223.00",
+    "available_seats": 20,
+    "departure_date": "2018-08-22T17:00:00.000Z",
+    "arrival_date": "2018-08-22T21:10:00.000Z",
+    "luggage": 25,
+    "origin": {
+      "iata_code": "FRA",
+      "city_name": "Frankfurt am Main",
+      "country_name": "Germany"
+    },
+    "destination": {
+      "iata_code": "EVN",
+      "city_name": "Yerevan",
+      "country_name": "Armenia"
+    }
+  },
+  {...},
+  {...}
+]
+
+```
+
+This endpoint retrieves CitizenPlane's stock of open flights with available seats.
+
+### HTTP request
+
+`GET https://booking-api.citizenplane.com/flights/all`
+
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/flights/getFlightsAll" target="_blank">click here</a>.</aside>
+
 ## Retrieve a list of flights
 
 > Example request
@@ -200,7 +283,7 @@ const getFlights = async () => {
 
 ```json
 {
-  "CDG-DJE": [
+  "data": [
     {
       "id": "Ar5WmxNM2k",
       "flight_number": "QS1234",
@@ -220,7 +303,9 @@ const getFlights = async () => {
       "luggage": 15,
       "online_price": 215,
       "infant_price": 30
-    }
+    },
+    {...},
+    {...}
   ]
 }
 ```
@@ -238,9 +323,9 @@ This endpoint retrieves the details of all open flights in CitizenPlane's stock 
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-origin | *string* | **required** | An uppercase string of comma-separated iata codes for the departure airports (can also be a single string).
+origin | *string* | **required** | An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
 nearbyO | *string* | *optional* | If set to `true`, nearby departure airports (up to 100km) will be considered in the flight search. Defaults to `false`.
-destination | *string* | **required** | An uppercase string of comma-separated iata codes for the arrival airports (can also be a single string).
+destination | *string* | **required** | An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
 nearbyD | *string* | *optional* | If set `true`, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to `false`.
 start | *date* | *optional* | Date from which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 end | *date* | *optional* | Date until which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
