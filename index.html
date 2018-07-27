@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript--nodejs&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,8 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="shell">curl</a>
+              <a href="#" data-language-name="javascript--nodejs">Node</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -228,16 +226,33 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#retrieve-all-departure-airports" class="toc-h2 toc-link" data-title="Retrieve all departure airports">Retrieve all departure airports</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#retrieve-a-list-of-arrival-airports" class="toc-h2 toc-link" data-title="Retrieve a list of arrival airports">Retrieve a list of arrival airports</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#retrieve-all-flights" class="toc-h2 toc-link" data-title="Retrieve all flights">Retrieve all flights</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-a-list-of-flights" class="toc-h2 toc-link" data-title="Retrieve a list of flights">Retrieve a list of flights</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-request" class="toc-h2 toc-link" data-title="Create a request">Create a request</a>
+                  </li>
+                  <li>
+                    <a href="#confirm-a-request-and-create-a-booking" class="toc-h2 toc-link" data-title="Confirm a request and create a booking">Confirm a request and create a booking</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#testing" class="toc-h1 toc-link" data-title="Testing">Testing</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#how-testing-works" class="toc-h2 toc-link" data-title="How testing works">How testing works</a>
                   </li>
               </ul>
           </li>
@@ -246,208 +261,963 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href="mailto:tech@citizenplane.com" target="_blank">Contact CitizenPlane</a></li>
+            <li>CitizenPlane 2017-2018</li>
+            <li>All rights reserved</li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p><a href="https://citizenplane.com/" target="_blank">CitizenPlane</a> is a software company that connects travel agencies and metasearches to air content providers. Our REST API allows ETAs to search within our stock of open flights, create bookings and process payments.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, included errors.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<p>To make the API as explorable as possible, accounts have test and live API tokens. API tokens can be obtained after contacting us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.</p>
+
+<p>If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.</p>
+
+<p>If you have any questions, feel free to send us a message at <a href="mailto:tech@citizenplane.com">tech@citizenplane.com</a></p>
+<h1 id='authentication'>Authentication</h1><pre class="highlight shell tab-shell"><code><span class="c"># Example request</span>
+
+curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</span> <span class="se">\</span>
+   -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
+
+<span class="c"># Make sure to replace {your_api_token} with the token you were given.</span>
+</code></pre>
+<p>Authentication to the API is performed via Bearer Tokens. Once you have registered your account with us, you will be given a test token to ensure a proper integration period. When you&#39;re ready to go live, we will assign you a live token. Make sure not to share your token in publicly accessible area such GitHub or client-side code.</p>
+
+<p>Every request to CitizenPlane API must include a Bearer token in the following format: <code>Authorization: Bearer {your_api_token}</code></p>
+<h1 id='endpoints'>Endpoints</h1><h2 id='retrieve-all-departure-airports'>Retrieve all departure airports</h2>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Example request</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</span> <span class="se">\</span>
+   -H <span class="s2">"Accept: application/json"</span> <span class="se">\</span>
+   -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">getAirports</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">airports</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">airports</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Example response</p>
 </blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADB"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Turkey"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Izmir"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AYT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Turkey"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Antalya"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a list of all departure airports in CitizenPlane&#39;s stock of available routes.</p>
+<h3 id='http-request'>HTTP request</h3>
+<p><code>GET https://booking-api.citizenplane.com/airports/origins</code></p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#!/airports/getAirportsOrigins" target="_blank">click here</a>.</aside>
+<h2 id='retrieve-a-list-of-arrival-airports'>Retrieve a list of arrival airports</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/airports/destinations?origin=CDG"</span> <span class="se">\</span>
+   -H <span class="s2">"Accept: application/json"</span> <span class="se">\</span>
+   -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">getAirports</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">airports</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/airports/destination?origin=CDG"</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">airports</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"CDG"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tunisia"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Djerba"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HER"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greece"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Heraklion"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a list of all arrival airports associated to a specific departure airport. The response only includes arrival airports for CitizenPlane&#39;s open and available routes.</p>
+<h3 id='http-request-2'>HTTP request</h3>
+<p><code>GET https://booking-api.citizenplane.com/airports/destinations</code></p>
+
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#!/airports/getAirportsDestinations" target="_blank">click here</a>.</aside>
+<h3 id='url-parameters'>URL parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>origin</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>An uppercase string of comma separated iata codes departure airports (can also be a single string).</td>
+</tr>
+<tr>
+<td>nearby</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>If nearby airports (up to a distance of 100km) should be taken into account, set the nearby parameter to <code>true</code>. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-all-flights'>Retrieve all flights</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/flights/all"</span>
+  -H <span class="s2">"Accept: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">getFlights</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">flights</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/flights/all"</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">flights</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+    </span><span class="s2">"flight_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SE56"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"available_seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-10T10:20:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-11T21:15:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CUN"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancun"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mexico"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="s2">"flight_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T5462"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"223.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"available_seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-22T17:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-22T21:10:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FRA"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Frankfurt am Main"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Germany"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EVN"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yerevan"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Armenia"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
+
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
+<p>This endpoint retrieves CitizenPlane&#39;s stock of open flights with available seats.</p>
+<h3 id='http-request-3'>HTTP request</h3>
+<p><code>GET https://booking-api.citizenplane.com/flights/all</code></p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/flights/getFlightsAll" target="_blank">click here</a>.</aside>
+<h2 id='retrieve-a-list-of-flights'>Retrieve a list of flights</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/flights?origin=CDG&amp;destination=DJE&amp;start=2018-08-07&amp;end=2018-08-30&amp;seats=2"</span>
+  -H <span class="s2">"Accept: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">getFlights</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">flights</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/flights?origin=CDG&amp;destination=DJE&amp;start=2018-08-07&amp;end=2018-08-30&amp;seats=2"</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">flights</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ar5WmxNM2k"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flight_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QS1234"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Djerba"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves the details of all open flights in CitizenPlane&#39;s stock matching the query parameters. Flights returned by the API are identified by a unique ID that will be need for the <code>/requests</code> endpoint.</p>
+<h3 id='http-request-4'>HTTP request</h3>
+<p><code>GET https://booking-api.citizenplane.com/flights</code></p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/flights" target="_blank">click here</a>.</aside>
+<h3 id='url-parameters-2'>URL parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>origin</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.</td>
+</tr>
+<tr>
+<td>nearbyO</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>If set to <code>true</code>, nearby departure airports (up to 100km) will be considered in the flight search. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td>destination</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.</td>
+</tr>
+<tr>
+<td>nearbyD</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>If set <code>true</code>, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td>start</td>
+<td><em>date</em></td>
+<td><em>optional</em></td>
+<td>Date from which the flight search will be operated. Date has to be formatted following this model: <code>YYYY-MM-DD</code>.</td>
+</tr>
+<tr>
+<td>end</td>
+<td><em>date</em></td>
+<td><em>optional</em></td>
+<td>Date until which the flight search will be operated. Date has to be formatted following this model: <code>YYYY-MM-DD</code>.</td>
+</tr>
+<tr>
+<td>seats</td>
+<td><em>integer</em></td>
+<td><em>optional</em></td>
+<td>Maximum number of seats to search for.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id='create-a-request'>Create a request</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
+  "flight_id": "Ar5WmxNM2k",
+    "passengers": {
+        "adults": 2,
+        "children": 0,
+        "infants": 0
+    }
+}'</span> <span class="s1">'https://booking-api.citizenplane.com`/requests`'</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">createRequest</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">`https://booking-api.citizenplane.com`</span><span class="o">/</span><span class="nx">requests</span><span class="s2">``</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">},</span>
+      <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">flight_id</span><span class="p">:</span> <span class="s2">"Ar5WmxNM2k"</span><span class="p">,</span>
+    <span class="na">passengers</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">adults</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="na">children</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="na">infants</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">request</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+  </span><span class="s2">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-12T11:57:28.217Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2AjMnZMDxz"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ar5WmxNM2k"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"formatted_date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"departure"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"August 29th 2018"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17:00"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"arrival"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"August 29th 2018"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19:00"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<p>This endpoint creates a booking request on a specific flight identified by its id. A booking request holds a number of seats passed in the request payload for <strong>fifteen minutes</strong>. Seat price and infant price won&#39;t be subject to any changes during this time period and will match the information sent by the <code>/flights</code> request.</p>
+
+<aside class ="notice">Should the booking not be confirmed, the request would be canceled and the seats put back in sales.</aside>
+<h3 id='http-request-5'>HTTP request</h3>
+<p><code>POST https://booking-api.citizenplane.com</code>/requests`</p>
+
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/requests" target="_blank">click here</a>.</aside>
+<h3 id='url-parameters-3'>URL parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>flight_id</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The flight id returned by the <code>/flights</code> GET request.</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td><em>object</em></td>
+<td><strong>required</strong></td>
+<td>An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.</td>
 </tr>
 </tbody></table>
+
+<p><br/>
+<br/></p>
+<h4 id='5f77584915'><table id="request-passengers-info"></h4>
+<p><caption> Passengers child arguments</caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">adults</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><em>optional</em></td>
+      <td align="left">Number of adults to book on this flight.</td>
+    </tr>
+    <tr>
+      <td align="left">children</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><em>optional</em></td>
+      <td align="left">Number of children to book on this flight.</td>
+    </tr>
+    <tr>
+      <td align="left">infants</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><em>optional</em></td>
+      <td align="left">Number of infants (2 &lt; yo) to book on this flight. Cannot be higher than the sum of adults and children passengers.</td>
+    </tr>
+  </tbody>
+</table></p>
+<h2 id='confirm-a-request-and-create-a-booking'>Confirm a request and create a booking</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
+  "request_id": "2AjMnZMDxz",
+  "first_name": "John",
+  "last_name": "Doe",
+  "gender": "male",
+  "email": "john.doe@example.com",
+  "phonenumber": "+33600000000",
+  "passenger_count": 2,
+  "infant_count": 0,
+  "passengers": [
+    {
+      "first_name": "John",
+      "last_name": "Doe",
+      "gender": "male",
+      "is_infant": false
+    },
+    {
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "gender": "female",
+      "is_infant": false
+    }
+  ],
+  "card_data": {
+    "number": "4242424242424242",
+    "exp_year": 2019,
+    "exp_month": 11,
+    "cvc": "555",
+    "name": "John Doe"
+  }
+}'</span> <span class="s1">'https://booking-api.citizenplane.com/bookings'</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
+
+<span class="kr">const</span> <span class="nx">createBooking</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">booking</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
+      <span class="na">method</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">`https://booking-api.citizenplane.com/bookings`</span><span class="p">,</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
+      <span class="p">},</span>
+      <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"request_id"</span><span class="p">:</span> <span class="s2">"2AjMnZMDxz"</span><span class="p">,</span>
+    <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
+    <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+    <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"male"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"john.doe@example.com"</span><span class="p">,</span>
+    <span class="s2">"phonenumber"</span><span class="p">:</span> <span class="s2">"+33600000000"</span><span class="p">,</span>
+    <span class="s2">"passenger_count"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"infant_count"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"passengers"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
+        <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+        <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"male"</span><span class="p">,</span>
+        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"Jane"</span><span class="p">,</span>
+        <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+        <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"female"</span><span class="p">,</span>
+        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"card_data"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"number"</span><span class="p">:</span> <span class="s2">"4242424242424242"</span><span class="p">,</span>
+      <span class="s2">"exp_year"</span><span class="p">:</span> <span class="mi">2019</span><span class="p">,</span>
+      <span class="s2">"exp_month"</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+      <span class="s2">"cvc"</span><span class="p">:</span> <span class="s2">"555"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John Doe"</span>
+    <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">booking</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"booking"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2AjMnZMDxz"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reseller_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eL67Pl7Wax"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ar5WmxNM2k"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reseller_booking_ref"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{your_orga_name}-2AjMnZMDxz"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33600000000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"passenger_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"infant_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"effective_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-12T16:07:31.628Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kY3vYGJ5zd"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Paris"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tunisia"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Djerba"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Africa/Tunis"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T18:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LAd5VA7mva"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SmartWings"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QS"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-06T15:57:28.034Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-06T06:15:38.742Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint confirms the previously created booking request and sends the booking information along with card information to CitizenPlane&#39;s API in order to process the booking and the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s). </p>
+
+<aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as **ABORTED** and the process is to be started again.</aside>
+<h3 id='http-request-6'>HTTP request</h3>
+<p><code>POST https://booking-api.citizenplane.com/bookings</code></p>
+
+<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/bookings" target="_blank">click here</a>.</aside>
+<h3 id='url-parameters-4'>URL parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>request_id</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The request id returned by the <code>/requests</code> POST call.</td>
+</tr>
+<tr>
+<td>distribution_channel</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>Name of the ETA through which the reservation has been made.</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The customer&#39;s first name.</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The customer&#39;s last name.</td>
+</tr>
+<tr>
+<td>gender</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The customer&#39;s gender.</td>
+</tr>
+<tr>
+<td>email</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The customer&#39;s email.</td>
+</tr>
+<tr>
+<td>phonenumber</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>The customer&#39;s phone number.</td>
+</tr>
+<tr>
+<td>address</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>The customer&#39;s address.</td>
+</tr>
+<tr>
+<td>city_name</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>The customer&#39;s city name.</td>
+</tr>
+<tr>
+<td>country_code</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>The customer&#39;s country code.</td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>The customer&#39;s postal code.</td>
+</tr>
+<tr>
+<td>passenger_count</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>Total passengers on this booking (infants excluded).</td>
+</tr>
+<tr>
+<td>infant_count</td>
+<td><em>string</em></td>
+<td><strong>required</strong></td>
+<td>Total infants on this booking (&lt; 2yo).</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td><em>object</em></td>
+<td><strong>required</strong></td>
+<td>An object containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.</td>
+</tr>
+<tr>
+<td>card_data</td>
+<td><em>object</em></td>
+<td><strong>required</strong></td>
+<td>An object containing the customer&#39;s card information to process the booking&#39;s payment. <a href="#booking-card-info">See child arguments</a>.</td>
+</tr>
+</tbody></table>
+
+<p><br/>
+<br/></p>
+<h4 id='9a1059b8fd'><table id="booking-passengers-info"></h4>
+<p><caption><b>passengers child arguments</b></caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">first_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Passenger&#39;s first name.</td>
+    </tr>
+    <tr>
+      <td align="left">last_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Passenger&#39;s last name.</td>
+    </tr>
+    <tr>
+      <td align="left">gender</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Passenger&#39;s gender.</td>
+    </tr>
+    <tr>
+      <td align="left">is_infant</td>
+      <td align="left"><i>boolean</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">If the passenger is an infant (&lt; 2 yo), set is_infant to true.</td>
+    </tr>
+    <tr>
+      <td align="left">birth_country</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s birth country.</td>
+    </tr>
+    <tr>
+      <td align="left">date_of_birth</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s date of birth.</td>
+    </tr>
+    <tr>
+      <td align="left">passport_number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s passport number.</td>
+    </tr>
+    <tr>
+      <td align="left">passport_expiry_date</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s passport expiry date.</td>
+    </tr>
+    <tr>
+      <td align="left">passport_country_of_issue</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s passport country of issue.</td>
+    </tr>
+    <tr>
+      <td align="left">nationality</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s nationality.</td>
+    </tr>
+  </tbody>
+</table></p>
+
+<p><br/>
+<br/></p>
+<h4 id='49032490bf'><table id="booking-card-info"></h4>
+<p><caption><b>card_data child arguments</b></caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">The customer&#39;s card number.</td>
+    </tr>
+    <tr>
+      <td align="left">exp_year</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">The customer&#39;s card expiration year (format <code>YYYY</code>).</td>
+    </tr>
+    <tr>
+      <td align="left">exp_month</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">The customer&#39;s card expiration month (format <code>MM</code>).</td>
+    </tr>
+    <tr>
+      <td align="left">cvc</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Card security code. Only required for accounts based in European countries but highly recommended for other countries.</td>
+    </tr>
+    <tr>
+      <td align="left">name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">The cardholder&#39;s full name.</td>
+    </tr>
+  </tbody>
+</table></p>
+<h1 id='testing'>Testing</h1>
+<p>A test environment has been set up to ensure a proper integration. During this process, you will be given a <strong>test token</strong> allowing you to make calls in a controlled environment. Before going live, a <strong>partner token</strong> will be assigned to you. This token is <strong>unique</strong> and <strong>non-expirable</strong>.</p>
+<h2 id='how-testing-works'>How testing works</h2>
+<p>If you&#39;d like to test our endpoints, you can use tools like Postman or curl or you can use our additional API documentation which allows you to make calls <a href="https://booking-api.citizenplane.com/documentation" target="_blank">within this page</a>.</p>
+<h3 id='retrieve-all-departure-airports-2'>Retrieve all departure airports</h3>
+<p>A simple <strong>GET</strong> request returning the list of all departure airports that are currently associated with open routes in CitizenPlane&#39;s stock. No specific instruction is needed for this request.</p>
+<h3 id='retrieve-a-list-of-arrival-airports-2'>Retrieve a list of arrival airports</h3>
+<p>A simple <strong>GET</strong> request returning the list of all our arrival airports (given an <code>origin</code> iata code) that are currently associated with open routes in CitizenPlane&#39;s stock. No specific instruction is needed for this request.</p>
+<h3 id='retrieve-a-list-of-flights-2'>Retrieve a list of flights</h3>
+<p>Given the limited available data to be requested, here are some guidelines to get proper responses according to the following query parameters: </p>
+
+<ul>
+<li><code>origin</code> &amp; <code>destination</code></li>
+</ul>
+
+<p>Please make sure to requests only flights with the following origin &amp; destination airports : </p>
+
+<table><thead>
+<tr>
+<th>airport name</th>
+<th>iata code</th>
+<th>country</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Brussels</td>
+<td>BRU</td>
+<td>Belgium</td>
+</tr>
+<tr>
+<td>Roissy Charles-De-Gaulle</td>
+<td>CDG</td>
+<td>France</td>
+</tr>
+<tr>
+<td>Djerba-Zarzis</td>
+<td>DJE</td>
+<td>Tunisia</td>
+</tr>
+<tr>
+<td>Antalya</td>
+<td>AYT</td>
+<td>Turkey</td>
+</tr>
+<tr>
+<td>Heraklion</td>
+<td>HER</td>
+<td>Greece</td>
+</tr>
+<tr>
+<td>Adnan Menderes</td>
+<td>ADB</td>
+<td>Turkey</td>
+</tr>
+<tr>
+<td>Orly</td>
+<td>ORY</td>
+<td>France</td>
+</tr>
+</tbody></table>
+
+<p>Any combination of these airports as <code>destination</code> or <code>origin</code> airports will return a result. </p>
+
+<ul>
+<li><code>nearbyO</code> &amp; <code>nearbyD</code></li>
+</ul>
+
+<p>If set to true, the result will include any flight combination of nearby origin airports (if <code>nearbyO === &#39;true&#39;</code>) and nearby destination airports (if <code>nearbyD === &#39;false&#39;</code>) up to <strong>100km</strong>. </p>
+
+<p>To test this option, please use the two airports located in Paris: <em>CDG</em> &amp; <em>ORY</em>. Other airports won&#39;t return any flights associated to nearby airports. </p>
+
+<ul>
+<li><code>seats</code></li>
+</ul>
+
+<p>Available flights hold between <strong>5</strong> and <strong>70</strong> seats. Thus, make sure your <code>seats</code> parameter is always below 70. Note that infants (&lt; 2 yo) don&#39;t take a seat.</p>
+
+<ul>
+<li><code>start</code> &amp; <code>end</code></li>
+</ul>
+
+<p>Available flights range from <strong>2018-07-10</strong> to <strong>2018-09-13</strong>. Make sure your <code>start</code> and <code>end</code> parameters are between this date range.</p>
+<h3 id='create-a-request-2'>Create a request</h3>
+<p>Creates a booking request that will hold the requested number of seats during a limited time period. If the request expires, the seats are no longer reserved and the process has to be started again. </p>
+
+<p>Use any of the <code>flight_id</code> returned by the <strong>/flights</strong> call to create a request. To ensure that your request is accepted, note that: </p>
+
+<ul>
+<li><code>effective_price</code> should equal <code>online_price</code> returned the the <strong>/flights</strong> call on the selected flight</li>
+<li><code>passengers</code> should not hold more than 70 adults and children (combined). Note that infants (&lt; 2 yo) do not take a seat on the booking reservation</li>
+</ul>
+
+<p>### Create a booking</p>
+
+<p>Confirms the booking requests and creates a booking on a specific flight. This call also processes the payment for the customer. </p>
+
+<p><strong>Some instructions for the payload object:</strong> </p>
+
+<ul>
+<li><code>flight_id</code>: an id returned by the <strong>/flights</strong> call</li>
+<li><code>request_id</code>: an id returned by the <strong><code>/requests</code></strong> call</li>
+<li><code>effective_price</code> should equal <code>online_price</code>, returned by the <strong>/flights</strong> call on the selected flight</li>
+<li><code>passenger_count</code> and <code>infant_count</code> should match the <code>passengers</code> information</li>
+<li>To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.</li>
+</ul>
+
+<p>If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+CitizenPlane uses conventional HTTP response codes to indicate the success or failure of an API request. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a request has expired, a charge failed, etc.). Codes in the 5xx range indicate an error with CitizenPlane's servers (these are rare).
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The CitizenPlane API uses the following error codes:</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
+<th>Code</th>
 <th>Meaning</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Your request is invalid (e.g missing payload keys or process a booking with a <code>passenger_count</code> that doesn&#39;t match the data stored during the request call).</td>
 </tr>
 <tr>
 <td>401</td>
@@ -455,49 +1225,23 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The requested action cannot be permitted (e.g process a booking on a <code>ABORTED</code> request)</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Not Found -- The specified data could not be found (e.g <code>flight_id</code> doesn&#39;t exist)</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later and contact us if the issue remain.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="shell">curl</a>
+                <a href="#" data-language-name="javascript--nodejs">Node</a>
           </div>
       </div>
     </div>
