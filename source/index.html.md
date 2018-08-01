@@ -20,7 +20,7 @@ search: true
 
 <a href="https://citizenplane.com/" target="_blank">CitizenPlane</a> is a software company that connects travel agencies and metasearches to air content providers. Our REST API allows ETAs to search within our stock of open flights, create bookings and process payments.
 
-The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, included errors.
+The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, including errors.
 
 To make the API as explorable as possible, accounts have test and live API tokens. API tokens can be obtained after contacting us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.
 
