@@ -557,7 +557,7 @@ const createBooking = async () => {
     "reseller_id": "eL67Pl7Wax",
     "flight_id": "Ar5WmxNM2k",
     "effective_price": 215,
-    "reseller_booking_ref": "{your_orga_name}-2AjMnZMDxz",
+    "booking_reference": "K9IR6XLGQ",
     "first_name": "john",
     "last_name": "doe",
     "gender": "male",
