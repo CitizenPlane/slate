@@ -26,6 +26,8 @@ To make the API as explorable as possible, accounts have test and live API token
 
 If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.
 
+Current API version is 1.1.
+
 If you have any questions, feel free to send us a message at <a href="mailto:tech@citizenplane.com">tech@citizenplane.com</a>
 
 # Authentication
@@ -46,29 +48,29 @@ Every request to CitizenPlane API must include a Bearer token in the following f
 
 # Endpoints
 
-## Retrieve all departure airports
+## Retrieve a list of flights
 
 > Example request
 
 ```shell
-curl "https://booking-api.citizenplane.com/airports/origins" \
-   -H "Accept: application/json" \
-   -H "Authorization: Bearer {your_api_token}"
+curl "https://booking-api.citizenplane.com/v1/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2"
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer {your_api_token}"
 ```
 
 ```javascript--nodejs
 const rp = require("request-promise")
 
-const getAirports = async () => {
+const getFlights = async () => {
   try {
-    const airports = await rp({
+    const flights = await rp({
       method: "GET",
-      uri: "https://booking-api.citizenplane.com/airports/origins",
+      uri: "https://booking-api.citizenplane.com/v1/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2",
       headers: {
 	Authorization: "Bearer {your_api_token}"
       }
     })
-    return airports
+    return flights
   } catch (err) {
     console.log(err)
  }
@@ -80,210 +82,6 @@ const getAirports = async () => {
 ```json
 {
   "results": [
-    {
-      "iata_code": "ADB",
-      "country_name": "Turkey",
-      "city_name": "Izmir"
-    },
-    {
-      "iata_code": "AYT",
-      "country_name": "Turkey",
-      "city_name": "Antalya"
-    }
-  ],
-  "total": 2
-}
-```
-
-This endpoint retrieves a list of all departure airports in CitizenPlane's stock of available routes.
-
-### HTTP request
-
-`GET https://booking-api.citizenplane.com/airports/origins`
-
-<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#!/airports/getAirportsOrigins" target="_blank">click here</a>.</aside>
-
-## Retrieve a list of arrival airports
-
-> Example request
-
-```shell
-curl "https://booking-api.citizenplane.com/airports/destinations?origin=CDG" \
-   -H "Accept: application/json" \
-   -H "Authorization: Bearer {your_api_token}"
-```
-
-```javascript--nodejs
-const rp = require("request-promise")
-
-const getAirports = async () => {
-  try {
-    const airports = await rp({
-      method: "GET",
-      uri: "https://booking-api.citizenplane.com/airports/destination?origin=CDG",
-      headers: {
-	Authorization: "Bearer {your_api_token}"
-      }
-    })
-    return airports
-  } catch (err) {
-    console.log(err)
- }
-}
-```
-
-> Example response
-
-```json
-{
-  "CDG": [
-    {
-      "iata_code": "DJE",
-      "country_name": "Tunisia",
-      "city_name": "Djerba"
-    },
-    {
-      "iata_code": "HER",
-      "country_name": "Greece",
-      "city_name": "Heraklion"
-    }
-  ]
-}
-```
-
-This endpoint retrieves a list of all arrival airports associated to a specific departure airport. The response only includes arrival airports for CitizenPlane's open and available routes.
-
-
-### HTTP request
-
-`GET https://booking-api.citizenplane.com/airports/destinations`
-
-<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#!/airports/getAirportsDestinations" target="_blank">click here</a>.</aside>
-
-### URL parameters
-
-Parameter | Type | Status | Description
---------- | ---- | ------ | -----------
-origin | *string* | **required** | An uppercase string of comma separated iata codes departure airports (can also be a single string).
-nearby | *string* | *optional* | If nearby airports (up to a distance of 100km) should be taken into account, set the nearby parameter to `true`. Defaults to `false`.
-
-## Retrieve all flights
-
-> Example request
-
-```shell
-curl "https://booking-api.citizenplane.com/flights/all"
-  -H "Accept: application/json" \
-  -H "Authorization: Bearer {your_api_token}"
-```
-
-```javascript--nodejs
-const rp = require("request-promise")
-
-const getFlights = async () => {
-  try {
-    const flights = await rp({
-      method: "GET",
-      uri: "https://booking-api.citizenplane.com/flights/all",
-      headers: {
-	Authorization: "Bearer {your_api_token}"
-      }
-    })
-    return flights
-  } catch (err) {
-    console.log(err)
- }
-}
-```
-
-> Example response
-
-```json
-[
-  {
-    "flight_number": "SE56",
-    "online_price": "500.00",
-    "available_seats": 5,
-    "departure_date": "2018-08-10T10:20:00.000Z",
-    "arrival_date": "2018-08-11T21:15:00.000Z",
-    "luggage": 20,
-    "origin": {
-      "iata_code": "CDG",
-      "city_name": "Paris",
-      "country_name": "France"
-    },
-    "destination": {
-      "iata_code": "CUN",
-      "city_name": "Cancun",
-      "country_name": "Mexico"
-    }
-  },
-  {
-    "flight_number": "T5462",
-    "online_price": "223.00",
-    "available_seats": 20,
-    "departure_date": "2018-08-22T17:00:00.000Z",
-    "arrival_date": "2018-08-22T21:10:00.000Z",
-    "luggage": 25,
-    "origin": {
-      "iata_code": "FRA",
-      "city_name": "Frankfurt am Main",
-      "country_name": "Germany"
-    },
-    "destination": {
-      "iata_code": "EVN",
-      "city_name": "Yerevan",
-      "country_name": "Armenia"
-    }
-  },
-  {...},
-  {...}
-]
-
-```
-
-This endpoint retrieves CitizenPlane's stock of open flights with available seats.
-
-### HTTP request
-
-`GET https://booking-api.citizenplane.com/flights/all`
-
-<aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/flights/getFlightsAll" target="_blank">click here</a>.</aside>
-
-## Retrieve a list of flights
-
-> Example request
-
-```shell
-curl "https://booking-api.citizenplane.com/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2"
-  -H "Accept: application/json" \
-  -H "Authorization: Bearer {your_api_token}"
-```
-
-```javascript--nodejs
-const rp = require("request-promise")
-
-const getFlights = async () => {
-  try {
-    const flights = await rp({
-      method: "GET",
-      uri: "https://booking-api.citizenplane.com/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2",
-      headers: {
-	Authorization: "Bearer {your_api_token}"
-      }
-    })
-    return flights
-  } catch (err) {
-    console.log(err)
- }
-}
-```
-
-> Example response
-
-```json
-{
-  "data": [
     {
       "id": "Ar5WmxNM2k",
       "flight_number": "QS1234",
@@ -306,15 +104,18 @@ const getFlights = async () => {
     },
     {...},
     {...}
-  ]
+  ],
+  "nbResults": 255,
+  "page": 0,
+  "nbPages": 3
 }
 ```
 
-This endpoint retrieves the details of all open flights in CitizenPlane's stock matching the query parameters. Flights returned by the API are identified by a unique ID that will be need for the ``/requests`` endpoint.
+This endpoint retrieves a list of flights in CitizenPlane's stock. Search settings and filters are available as query parameters. Flights returned by the API are identified by a unique ID that will be needed for the `/requests` endpoint.
 
 ### HTTP request
 
-`GET https://booking-api.citizenplane.com/flights`
+`GET https://booking-api.citizenplane.com/v1/flights`
 
 <aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/flights" target="_blank">click here</a>.</aside>
 
@@ -323,13 +124,14 @@ This endpoint retrieves the details of all open flights in CitizenPlane's stock 
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-origin | *string* | **required** | An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
+origin | *string* | *optional* | An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
 nearbyO | *string* | *optional* | If set to `true`, nearby departure airports (up to 100km) will be considered in the flight search. Defaults to `false`.
-destination | *string* | **required** | An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
+destination | *string* | *optional* | An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
 nearbyD | *string* | *optional* | If set `true`, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to `false`.
 start | *date* | *optional* | Date from which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 end | *date* | *optional* | Date until which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 seats | *integer* | *optional* | Maximum number of seats to search for.
+page | *integer* | *optional* | Specify the page to retrieve. Each page displays up to 100 results. If you do not specify a page value, default value is 0 (page numbers are zero-based).
 
 ## Create a request
 
@@ -343,7 +145,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
         "children": 0,
         "infants": 0
     }
-}' 'https://booking-api.citizenplane.com`/requests`'
+}' 'https://booking-api.citizenplane.com/v1/requests'
 ```
 
 ```javascript--nodejs
@@ -353,7 +155,7 @@ const createRequest = async () => {
   try {
     const request = await rp({
       method: "POST",
-      uri: `https://booking-api.citizenplane.com`/requests``,
+      uri: "https://booking-api.citizenplane.com/v1/requests",
       headers: {
 	Authorization: "Bearer {your_api_token}"
       },
@@ -378,14 +180,12 @@ const createRequest = async () => {
 
 ```json
 {
-  "request": {
-    "seats": 2,
-    "effective_price": 215,
-    "created_at": "2018-07-12T11:57:28.217Z",
-    "id": "2AjMnZMDxz",
-    "flight_id": "Ar5WmxNM2k"
-  },
+  "seats": 2,
+  "effective_price": 215,
+  "created_at": "2018-07-12T11:57:28.217Z",
+  "id": "2AjMnZMDxz",
   "flight": {
+      "id": "Ar5WmxNM2k",
       "formatted_date": {
 	"departure": {
 	  "date": "August 29th 2018",
@@ -408,13 +208,13 @@ const createRequest = async () => {
 }
 ```
 
-This endpoint creates a booking request on a specific flight identified by its id. A booking request holds a number of seats passed in the request payload for **fifteen minutes**. Seat price and infant price won't be subject to any changes during this time period and will match the information sent by the `/flights` request.
+This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for **fifteen minutes**. Seat price and infant price won't be subject to any changes during this time period.
 
 <aside class ="notice">Should the booking not be confirmed, the request would be canceled and the seats put back in sales.</aside>
 
 ### HTTP request
 
-`POST https://booking-api.citizenplane.com`/requests`
+`POST https://booking-api.citizenplane.com/v1/requests`
 
 <aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/requests" target="_blank">click here</a>.</aside>
 
@@ -466,6 +266,7 @@ passengers | *object* | **required** | An object containing the passenger count 
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "request_id": "2AjMnZMDxz",
+  "booking_id": "12345",
   "first_name": "John",
   "last_name": "Doe",
   "gender": "male",
@@ -494,7 +295,7 @@ curl POST --header 'Content-Type: application/json' --header 'Accept: applicatio
     "cvc": "555",
     "name": "John Doe"
   }
-}' 'https://booking-api.citizenplane.com/bookings'
+}' 'https://booking-api.citizenplane.com/v1/bookings'
 ```
 
 ```javascript--nodejs
@@ -504,13 +305,14 @@ const createBooking = async () => {
   try {
     const booking = await rp({
       method: "POST",
-      uri: `https://booking-api.citizenplane.com/bookings`,
+      uri: `https://booking-api.citizenplane.com/v1/bookings`,
       headers: {
 	Authorization: "Bearer {your_api_token}"
       },
       json: true,
       body: {
 	"request_id": "2AjMnZMDxz",
+        "booking_id": "12345",
 	"first_name": "John",
 	"last_name": "Doe",
 	"gender": "male",
@@ -557,7 +359,7 @@ const createBooking = async () => {
     "reseller_id": "eL67Pl7Wax",
     "flight_id": "Ar5WmxNM2k",
     "effective_price": 215,
-    "booking_reference": "K9IR6XLGQ",
+    "pnr_reference": "K9IR6XLGQ",
     "first_name": "john",
     "last_name": "doe",
     "gender": "male",
@@ -618,7 +420,7 @@ This endpoint confirms the previously created booking request and sends the book
 
 ### HTTP request
 
-`POST https://booking-api.citizenplane.com/bookings`
+`POST https://booking-api.citizenplane.com/v1/bookings`
 
 
 <aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/bookings" target="_blank">click here</a>.</aside>
@@ -629,6 +431,7 @@ This endpoint confirms the previously created booking request and sends the book
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 request_id | *string* | **required** | The request id returned by the `/requests` POST call.
+booking_id | *string* | **required** | An id generated by the caller's API to identify the booking.
 distribution_channel | *string* | *optional* | Name of the ETA through which the reservation has been made.
 first_name | *string* | **required** | The customer's first name.
 last_name | *string* | **required** | The customer's last name.
@@ -772,21 +575,13 @@ A test environment has been set up to ensure a proper integration. During this p
 
 If you'd like to test our endpoints, you can use tools like Postman or curl or you can use our additional API documentation which allows you to make calls <a href="https://booking-api.citizenplane.com/documentation" target="_blank">within this page</a>.
 
-### Retrieve all departure airports
-
-A simple **GET** request returning the list of all departure airports that are currently associated with open routes in CitizenPlane's stock. No specific instruction is needed for this request.
-
-### Retrieve a list of arrival airports
-
-A simple **GET** request returning the list of all our arrival airports (given an `origin` iata code) that are currently associated with open routes in CitizenPlane's stock. No specific instruction is needed for this request.
-
 ### Retrieve a list of flights
 
-Given the limited available data to be requested, here are some guidelines to get proper responses according to the following query parameters: 
+Given the limited available data to be requested, here are some guidelines to get proper responses according to the following query parameters:
 
 - `origin` & `destination`
 
-Please make sure to requests only flights with the following origin & destination airports : 
+Please make sure to requests only flights with the following origin & destination airports :
 
 airport name | iata code | country
 ------------ | --------- | -------
