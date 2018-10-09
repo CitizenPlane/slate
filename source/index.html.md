@@ -569,65 +569,12 @@ card_data | *object* | **required** | An object containing the customer's card i
 
 # Testing
 
-A test environment has been set up to ensure a proper integration. During this process, you will be given a **test token** allowing you to make calls in a controlled environment. Before going live, a **partner token** will be assigned to you. This token is **unique** and **non-expirable**.
+CitizenPlane's API has a sandbox mode allowing you to safely test your integration with us. In order to do so, you will need a test token, which will give you access to our demo flights. You will be able to test our different endpoints without actually booking any seats or processing any payments.
 
-## How testing works
+Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to `/v1/flights` without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.
 
-If you'd like to test our endpoints, you can use tools like Postman or curl or you can use our additional API documentation which allows you to make calls <a href="https://booking-api.citizenplane.com/documentation" target="_blank">within this page</a>.
+To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.
 
-### Retrieve a list of flights
-
-Given the limited available data to be requested, here are some guidelines to get proper responses according to the following query parameters:
-
-- `origin` & `destination`
-
-Please make sure to requests only flights with the following origin & destination airports :
-
-airport name | iata code | country
------------- | --------- | -------
-Brussels | BRU | Belgium
-Roissy Charles-De-Gaulle | CDG | France
-Djerba-Zarzis | DJE | Tunisia
-Antalya | AYT | Turkey
-Heraklion | HER | Greece
-Adnan Menderes | ADB | Turkey
-Orly | ORY | France
-
-Any combination of these airports as `destination` or `origin` airports will return a result. 
-
-- `nearbyO` & `nearbyD`
-
-If set to true, the result will include any flight combination of nearby origin airports (if `nearbyO === 'true'`) and nearby destination airports (if `nearbyD === 'false'`) up to **100km**. 
-
-To test this option, please use the two airports located in Paris: *CDG* & *ORY*. Other airports won't return any flights associated to nearby airports. 
-
-- `seats`
-
-Available flights hold between **5** and **70** seats. Thus, make sure your `seats` parameter is always below 70. Note that infants (< 2 yo) don't take a seat.
-
- - `start` & `end`
-
- Available flights range from **2018-07-10** to **2018-09-13**. Make sure your `start` and `end` parameters are between this date range.
-
-### Create a request
-
- Creates a booking request that will hold the requested number of seats during a limited time period. If the request expires, the seats are no longer reserved and the process has to be started again. 
-
- Use any of the `flight_id` returned by the **/flights** call to create a request. To ensure that your request is accepted, note that: 
-
- - `effective_price` should equal `online_price` returned the the **/flights** call on the selected flight
- - `passengers` should not hold more than 70 adults and children (combined). Note that infants (< 2 yo) do not take a seat on the booking reservation
-
- ### Create a booking
-
- Confirms the booking requests and creates a booking on a specific flight. This call also processes the payment for the customer. 
-
- **Some instructions for the payload object:** 
-
- - `flight_id`: an id returned by the **/flights** call
- - `request_id`: an id returned by the **`/requests`** call
- - `effective_price` should equal `online_price`, returned by the **/flights** call on the selected flight
- - `passenger_count` and `infant_count` should match the `passengers` information
- - To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.
+Once you're ready to go live, you'll receive a live token that will allow you to process booking and payments through our API.
 
  If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a>
