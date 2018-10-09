@@ -229,7 +229,7 @@
             <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#retrieve-a-list-of-flights" class="toc-h2 toc-link" data-title="Retrieve a list of flights">Retrieve a list of flights</a>
+                    <a href="#retrieve-a-list-of-flights" class="toc-h2 toc-link" data-title="Retrieve a list of flights"><a id="flights-endpoint">Retrieve a list of flights</a></a>
                   </li>
                   <li>
                     <a href="#create-a-request" class="toc-h2 toc-link" data-title="Create a request">Create a request</a>
@@ -264,7 +264,7 @@
 
 <p>If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.</p>
 
-<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has \`/v1\` appended to its url.</aside>
+<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has /v1 appended to its url.</aside>
 <h1 id='authentication'>Authentication</h1><pre class="highlight shell tab-shell"><code><span class="c"># Example request</span>
 
 curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <span class="se">\</span>
@@ -275,7 +275,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <p>Authentication to the API is performed via <strong>Bearer Tokens</strong>. Tokens are unique and non-expirable. Make sure not to share your token in publicly accessible area such GitHub or client-side code.</p>
 
 <p>Every request to CitizenPlane API must include a Bearer token in the following format: <code>Authorization: Bearer {your_api_token}</code></p>
-<h1 id='endpoints'>Endpoints</h1><h2 id='retrieve-a-list-of-flights'>Retrieve a list of flights</h2>
+<h1 id='endpoints'>Endpoints</h1><h2 id='retrieve-a-list-of-flights'><a id="flights-endpoint">Retrieve a list of flights</a></h2>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -350,7 +350,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>origin</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>A string of uppercase, comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.</td>
+<td>A string of uppercase, comma-separated iata codes containing a list of departure airports (up to a maximum of 10 airports).</td>
 </tr>
 <tr>
 <td>nearbyO</td>
@@ -362,13 +362,13 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>destination</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>A string of uppercase, comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.</td>
+<td>A string of uppercase, comma-separated iata codes containing a list of arrival airports (up to a maximum of 10 airports).</td>
 </tr>
 <tr>
 <td>nearbyD</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>If set <code>true</code>, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to <code>false</code>.</td>
+<td>If set to <code>true</code>, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to <code>false</code>.</td>
 </tr>
 <tr>
 <td>start</td>
@@ -392,7 +392,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>page</td>
 <td><em>integer</em></td>
 <td><em>optional</em></td>
-<td>Specify the page to retrieve. Each page displays up to 100 results. If you do not specify a page value, default value is 0 (page numbers are zero-based).</td>
+<td>Specify the page to retrieve. Each page displays up to 100 results. Defaults to 0 (page numbers are zero-based).</td>
 </tr>
 </tbody></table>
 <h2 id='create-a-request'>Create a request</h2>
@@ -484,7 +484,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>flight_id</td>
 <td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>A string containing the flight id (see <code>/flights</code>).</td>
+<td>A string containing the flight id (see <a href="#flights-endpoint"><code>/flights</code></a>).</td>
 </tr>
 <tr>
 <td>passengers</td>
