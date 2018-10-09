@@ -572,7 +572,7 @@ card_data | *object* | **required** | An object containing the customer's credit
 
 CitizenPlane's API has a sandbox mode allowing you to safely test your integration with us. In order to do so, you will need a test token, which will give you access to our demo flights. You will be able to test our different endpoints without actually booking any seats or processing any payments.
 
-<aside class ="notice">Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to `/flights` without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.</aside>
+<aside class ="notice">Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to /flights without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.</aside>
 
 To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.
 
