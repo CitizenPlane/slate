@@ -26,7 +26,7 @@ To make the API as explorable as possible, accounts have test and live API token
 
 If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.
 
-<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has `/v1` appended to its url.</aside>
+<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has /v1 appended to its url.</aside>
 
 # Authentication
 
@@ -40,7 +40,7 @@ curl "https://booking-api.citizenplane.com/v1/flights" \
 # Make sure to replace {your_api_token} with the token you were given.
 ```
 
-Authentication to the API is performed via *Bearer Tokens*. Tokens are unique and non-expirable. Make sure not to share your token in publicly accessible area such GitHub or client-side code.
+Authentication to the API is performed via **Bearer Tokens**. Tokens are unique and non-expirable. Make sure not to share your token in publicly accessible area such GitHub or client-side code.
 
 Every request to CitizenPlane API must include a Bearer token in the following format: `Authorization: Bearer {your_api_token}`
 
@@ -122,14 +122,14 @@ This endpoint retrieves a list of flights in CitizenPlane's stock. Flights retur
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-origin | *string* | *optional* | A string of uppercase, comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
+origin | *string* | *optional* | A string of uppercase, comma-separated iata codes containing a list of departure airports (up to a maximum of 10 airports).
 nearbyO | *string* | *optional* | If set to `true`, nearby departure airports (up to 100km) will be considered in the flight search. Defaults to `false`.
-destination | *string* | *optional* | A string of uppercase, comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
-nearbyD | *string* | *optional* | If set `true`, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to `false`.
+destination | *string* | *optional* | A string of uppercase, comma-separated iata codes containing a list of arrival airports (up to a maximum of 10 airports).
+nearbyD | *string* | *optional* | If set to `true`, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to `false`.
 start | *date* | *optional* | Date from which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 end | *date* | *optional* | Date until which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 seats | *integer* | *optional* | Maximum number of seats to search for.
-page | *integer* | *optional* | Specify the page to retrieve. Each page displays up to 100 results. If you do not specify a page value, default value is 0 (page numbers are zero-based).
+page | *integer* | *optional* | Specify the page to retrieve. Each page displays up to 100 results. Defaults to 0 (page numbers are zero-based).
 
 ## Create a request
 
