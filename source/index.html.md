@@ -22,13 +22,11 @@ search: true
 
 The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, including errors.
 
-To make the API as explorable as possible, accounts have test and live API tokens. API tokens can be obtained after contacting us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.
+To make the API as explorable as possible, accounts have test and live API tokens. To get your token, contact us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.
 
 If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.
 
-Current API version is 1.1.
-
-If you have any questions, feel free to send us a message at <a href="mailto:tech@citizenplane.com">tech@citizenplane.com</a>
+<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has `/v1` appended to its url.</aside>
 
 # Authentication
 
@@ -36,13 +34,13 @@ If you have any questions, feel free to send us a message at <a href="mailto:tec
 ```shell
 # Example request
 
-curl "https://booking-api.citizenplane.com/airports/origins" \
+curl "https://booking-api.citizenplane.com/v1/flights" \
    -H "Authorization: Bearer {your_api_token}"
 
 # Make sure to replace {your_api_token} with the token you were given.
 ```
 
-Authentication to the API is performed via Bearer Tokens. Once you have registered your account with us, you will be given a test token to ensure a proper integration period. When you're ready to go live, we will assign you a live token. Make sure not to share your token in publicly accessible area such GitHub or client-side code.
+Authentication to the API is performed via *Bearer Tokens*. Tokens are unique and non-expirable. Make sure not to share your token in publicly accessible area such GitHub or client-side code.
 
 Every request to CitizenPlane API must include a Bearer token in the following format: `Authorization: Bearer {your_api_token}`
 
@@ -111,7 +109,7 @@ const getFlights = async () => {
 }
 ```
 
-This endpoint retrieves a list of flights in CitizenPlane's stock. Search settings and filters are available as query parameters. Flights returned by the API are identified by a unique ID that will be needed for the `/requests` endpoint.
+This endpoint retrieves a list of flights in CitizenPlane's stock. Flights returned by the API are identified by a unique ID that will be needed for the `/requests` endpoint.
 
 ### HTTP request
 
@@ -124,9 +122,9 @@ This endpoint retrieves a list of flights in CitizenPlane's stock. Search settin
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-origin | *string* | *optional* | An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
+origin | *string* | *optional* | A string of uppercase, comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.
 nearbyO | *string* | *optional* | If set to `true`, nearby departure airports (up to 100km) will be considered in the flight search. Defaults to `false`.
-destination | *string* | *optional* | An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
+destination | *string* | *optional* | A string of uppercase, comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.
 nearbyD | *string* | *optional* | If set `true`, nearby arrival airports (up to 100km) will be considered in the flight search. Defaults to `false`.
 start | *date* | *optional* | Date from which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
 end | *date* | *optional* | Date until which the flight search will be operated. Date has to be formatted following this model: `YYYY-MM-DD`.
@@ -208,7 +206,7 @@ const createRequest = async () => {
 }
 ```
 
-This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for **fifteen minutes**. Seat price and infant price won't be subject to any changes during this time period.
+This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for **fifteen minutes**. Seat and infant prices won't be subject to any changes during this time period.
 
 <aside class ="notice">Should the booking not be confirmed, the request would be canceled and the seats put back in sales.</aside>
 
@@ -223,7 +221,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-flight_id | *string* | **required** | The flight id returned by the `/flights` GET request.
+flight_id | *string* | **required** | A string containing the flight id (see `/flights`).
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -360,8 +358,11 @@ const createBooking = async () => {
     "flight_id": "Ar5WmxNM2k",
     "effective_price": 215,
     "pnr_reference": "K9IR6XLGQ",
-    "first_name": "john",
-    "last_name": "doe",
+    "reseller_field": {
+      "id": "12345"
+    },
+    "first_name": "John",
+    "last_name": "Doe",
     "gender": "male",
     "email": "john.doe@example.com",
     "phonenumber": "+33600000000",
@@ -414,9 +415,9 @@ const createBooking = async () => {
 }
 ```
 
-This endpoint confirms the previously created booking request and sends the booking information along with card information to CitizenPlane's API in order to process the booking and the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s). 
+This endpoint confirms the previously created booking request and processes the booking as well as the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s).
 
-<aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as **ABORTED** and the process is to be started again.</aside>
+<aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as aborted and the process is to be started again.</aside>
 
 ### HTTP request
 
@@ -430,8 +431,8 @@ This endpoint confirms the previously created booking request and sends the book
 
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
-request_id | *string* | **required** | The request id returned by the `/requests` POST call.
-booking_id | *string* | **required** | An id generated by the caller's API to identify the booking.
+request_id | *string* | **required** | A string containing the request id (see `/requests`).
+booking_id | *string* | **required** | An id generated by the caller to identify the booking.
 distribution_channel | *string* | *optional* | Name of the ETA through which the reservation has been made.
 first_name | *string* | **required** | The customer's first name.
 last_name | *string* | **required** | The customer's last name.
@@ -445,7 +446,7 @@ postal_code | *string* | *optional* | The customer's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
 passengers | *object* | **required** | An object containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
-card_data | *object* | **required** | An object containing the customer's card information to process the booking's payment. <a href="#booking-card-info">See child arguments</a>.
+card_data | *object* | **required** | An object containing the customer's credit card information. <a href="#booking-card-info">See child arguments</a>.
 
 <br/>
 <br/>
@@ -571,10 +572,10 @@ card_data | *object* | **required** | An object containing the customer's card i
 
 CitizenPlane's API has a sandbox mode allowing you to safely test your integration with us. In order to do so, you will need a test token, which will give you access to our demo flights. You will be able to test our different endpoints without actually booking any seats or processing any payments.
 
-Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to `/v1/flights` without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.
+<aside class ="notice">Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to `/flights` without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.</aside>
 
 To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.
 
-Once you're ready to go live, you'll receive a live token that will allow you to process booking and payments through our API.
+Once you're ready to go live, you'll receive a live token that will allow you to process bookings and payments through our API.
 
- If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a>
+ If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a>.
