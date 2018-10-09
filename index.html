@@ -260,21 +260,19 @@
 
 <p>The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, including errors.</p>
 
-<p>To make the API as explorable as possible, accounts have test and live API tokens. API tokens can be obtained after contacting us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.</p>
+<p>To make the API as explorable as possible, accounts have test and live API tokens. To get your token, contact us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.</p>
 
 <p>If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.</p>
 
-<p>Current API version is 1.1.</p>
-
-<p>If you have any questions, feel free to send us a message at <a href="mailto:tech@citizenplane.com">tech@citizenplane.com</a></p>
+<aside class ="notice">Current API version is 1.1. Therefore, every endpoint has `/v1` appended to its url.</aside>
 <h1 id='authentication'>Authentication</h1><pre class="highlight shell tab-shell"><code><span class="c"># Example request</span>
 
-curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</span> <span class="se">\</span>
+curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <span class="se">\</span>
    -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
 
 <span class="c"># Make sure to replace {your_api_token} with the token you were given.</span>
 </code></pre>
-<p>Authentication to the API is performed via Bearer Tokens. Once you have registered your account with us, you will be given a test token to ensure a proper integration period. When you&#39;re ready to go live, we will assign you a live token. Make sure not to share your token in publicly accessible area such GitHub or client-side code.</p>
+<p>Authentication to the API is performed via <em>Bearer Tokens</em>. Tokens are unique and non-expirable. Make sure not to share your token in publicly accessible area such GitHub or client-side code.</p>
 
 <p>Every request to CitizenPlane API must include a Bearer token in the following format: <code>Authorization: Bearer {your_api_token}</code></p>
 <h1 id='endpoints'>Endpoints</h1><h2 id='retrieve-a-list-of-flights'>Retrieve a list of flights</h2>
@@ -334,7 +332,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
   </span><span class="s2">"nbPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a list of flights in CitizenPlane&#39;s stock. Search settings and filters are available as query parameters. Flights returned by the API are identified by a unique ID that will be needed for the <code>/requests</code> endpoint.</p>
+<p>This endpoint retrieves a list of flights in CitizenPlane&#39;s stock. Flights returned by the API are identified by a unique ID that will be needed for the <code>/requests</code> endpoint.</p>
 <h3 id='http-request'>HTTP request</h3>
 <p><code>GET https://booking-api.citizenplane.com/v1/flights</code></p>
 
@@ -352,7 +350,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <td>origin</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>An uppercase string of comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.</td>
+<td>A string of uppercase, comma-separated iata codes for the departure airports up to a maximum of 10 departure airports.</td>
 </tr>
 <tr>
 <td>nearbyO</td>
@@ -364,7 +362,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <td>destination</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>An uppercase string of comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.</td>
+<td>A string of uppercase, comma-separated iata codes for the arrival airports up to a maximum of 10 arrival airports.</td>
 </tr>
 <tr>
 <td>nearbyD</td>
@@ -466,7 +464,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for <strong>fifteen minutes</strong>. Seat price and infant price won&#39;t be subject to any changes during this time period.</p>
+<p>This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for <strong>fifteen minutes</strong>. Seat and infant prices won&#39;t be subject to any changes during this time period.</p>
 
 <aside class ="notice">Should the booking not be confirmed, the request would be canceled and the seats put back in sales.</aside>
 <h3 id='http-request-2'>HTTP request</h3>
@@ -486,7 +484,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <td>flight_id</td>
 <td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>The flight id returned by the <code>/flights</code> GET request.</td>
+<td>A string containing the flight id (see <code>/flights</code>).</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -623,8 +621,11 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
     </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ar5WmxNM2k"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
     </span><span class="s2">"pnr_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K9IR6XLGQ"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reseller_field"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33600000000"</span><span class="p">,</span><span class="w">
@@ -676,9 +677,9 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint confirms the previously created booking request and sends the booking information along with card information to CitizenPlane&#39;s API in order to process the booking and the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s). </p>
+<p>This endpoint confirms the previously created booking request and processes the booking as well as the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s).</p>
 
-<aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as **ABORTED** and the process is to be started again.</aside>
+<aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as aborted and the process is to be started again.</aside>
 <h3 id='http-request-3'>HTTP request</h3>
 <p><code>POST https://booking-api.citizenplane.com/v1/bookings</code></p>
 
@@ -696,13 +697,13 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <td>request_id</td>
 <td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>The request id returned by the <code>/requests</code> POST call.</td>
+<td>A string containing the request id (see <code>/requests</code>).</td>
 </tr>
 <tr>
 <td>booking_id</td>
 <td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>An id generated by the caller&#39;s API to identify the booking.</td>
+<td>An id generated by the caller to identify the booking.</td>
 </tr>
 <tr>
 <td>distribution_channel</td>
@@ -786,7 +787,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <td>card_data</td>
 <td><em>object</em></td>
 <td><strong>required</strong></td>
-<td>An object containing the customer&#39;s card information to process the booking&#39;s payment. <a href="#booking-card-info">See child arguments</a>.</td>
+<td>An object containing the customer&#39;s credit card information. <a href="#booking-card-info">See child arguments</a>.</td>
 </tr>
 </tbody></table>
 
@@ -910,13 +911,13 @@ curl <span class="s2">"https://booking-api.citizenplane.com/airports/origins"</s
 <h1 id='testing'>Testing</h1>
 <p>CitizenPlane&#39;s API has a sandbox mode allowing you to safely test your integration with us. In order to do so, you will need a test token, which will give you access to our demo flights. You will be able to test our different endpoints without actually booking any seats or processing any payments.</p>
 
-<p>Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to <code>/v1/flights</code> without any query parameters except pagination to get the full list of demo flights. You&#39;ll then know wich query parameters to test.</p>
+<aside class ="notice">Please note that we only have a few demo flights for you to use. We advise you to first make a GET request to `/flights` without any query parameters except pagination to get the full list of demo flights. You'll then know wich query parameters to test.</aside>
 
 <p>To test the payment processing method, use any of the testing cards provided by Stripe: <a href="https://stripe.com/docs/testing#cards" target="_blank">Stripe testing cards</a>.</p>
 
-<p>Once you&#39;re ready to go live, you&#39;ll receive a live token that will allow you to process booking and payments through our API.</p>
+<p>Once you&#39;re ready to go live, you&#39;ll receive a live token that will allow you to process bookings and payments through our API.</p>
 
-<p>If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a></p>
+<p>If you have any questions, feel free to reach us at <a href="mailto:tech@citizenplane.com">tech@citizenplane</a>.</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 CitizenPlane uses conventional HTTP response codes to indicate the success or failure of an API request. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a request has expired, a charge failed, etc.). Codes in the 5xx range indicate an error with CitizenPlane's servers (these are rare).
