@@ -51,7 +51,7 @@ Every request to CitizenPlane API must include a Bearer token in the following f
 > Example request
 
 ```shell
-curl "https://booking-api.citizenplane.com/v1/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2"
+curl "https://booking-api.citizenplane.com/v1/flights"
   -H "Accept: application/json" \
   -H "Authorization: Bearer {your_api_token}"
 ```
@@ -63,7 +63,7 @@ const getFlights = async () => {
   try {
     const flights = await rp({
       method: "GET",
-      uri: "https://booking-api.citizenplane.com/v1/flights?origin=CDG&destination=DJE&start=2018-08-07&end=2018-08-30&seats=2",
+      uri: "https://booking-api.citizenplane.com/v1/flights",
       headers: {
 	Authorization: "Bearer {your_api_token}"
       }
@@ -81,24 +81,24 @@ const getFlights = async () => {
 {
   "results": [
     {
-      "id": "12345",
-      "flight_number": "QS1234",
-      "departure_date": "2018-08-29T15:00:00.000Z",
-      "arrival_date": "2018-08-29T18:00:00.000Z",
-      "origin": {
-        "iata_code": "CDG",
-        "city_name": "Paris"
+      "id": 20222,
+      "organization_name": "Demo",
+      "flight_number": "5O7892",
+      "origin": "CDG",
+      "destination": "PMI",
+      "online_price": 273,
+      "luggage": 20,
+      "available_seats": 20,
+      "airline": {
+          "name": "CitizenPlane",
+          "operated_by": "Transavia"
       },
-      "organization": {
-        "name": "Demo"
-      },
-      "destination": {
-        "iata_code": "DJE",
-        "city_name": "Djerba"
-      },
-      "luggage": 15,
-      "online_price": 215,
-      "online_infant_price": 30
+      "cabin_class": "economy",
+      "booking_class": "Y",
+      "online_infant_price": 75,
+      "included_airport_tax": 33,
+      "departure_date": "2018-11-29 10:00",
+      "arrival_date": "2018-11-29 16:00"
     },
     {...},
     {...}
@@ -137,7 +137,7 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
-  "flight_id": "12345",
+  "flight_id": "20222",
     "passengers": {
         "adults": 2,
         "children": 0,
@@ -159,7 +159,7 @@ const createRequest = async () => {
       },
       json: true,
       body: {
-	flight_id: "12345",
+	flight_id: "20222",
 	passengers: {
 	  adults: 2,
 	  children: 0,
@@ -178,31 +178,36 @@ const createRequest = async () => {
 
 ```json
 {
-  "seats": 2,
-  "effective_price": 215,
-  "created_at": "2018-07-12T11:57:28.217Z",
-  "id": "9876",
-  "flight": {
-      "id": "12345",
-      "formatted_date": {
-	"departure": {
-	  "date": "August 29th 2018",
-	  "time": "17:00"
-	},
-	"arrival": {
-	  "date": "August 29th 2018",
-	  "time": "19:00"
-	}
-      },
-      "online_price": 215,
-      "luggage": 15,
-      "origin": {
-	"iata_code": "CDG"
-      },
-      "destination": {
-	"iata_code": "DJE"
-      }
-  }
+    "id": 19,
+    "seats": 1,
+    "effective_price": 273,
+    "created_at": "2018-10-16T15:02:28.797Z",
+    "flight": {
+        "id": 20222,
+        "formatted_date": {
+            "departure": {
+                "date": "November 29th 2018",
+                "time": "10:00"
+            },
+            "arrival": {
+                "date": "November 29th 2018",
+                "time": "16:00"
+            }
+        },
+        "luggage": 20,
+        "origin": {
+            "iata_code": "CDG"
+        },
+        "destination": {
+            "iata_code": "PMI"
+        },
+        "online_price": 273,
+        "online_infant_price": 75,
+        "airline": {
+            "name": "CitizenPlane",
+            "operated_by": "Transavia"
+        }
+    }
 }
 ```
 
@@ -263,7 +268,7 @@ passengers | *object* | **required** | An object containing the passenger count 
 
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
-  "request_id": "9876",
+  "request_id": "19",
   "booking_id": "12345",
   "first_name": "John",
   "last_name": "Doe",
@@ -309,7 +314,7 @@ const createBooking = async () => {
       },
       json: true,
       body: {
-	"request_id": "9876",
+	"request_id": "19",
         "booking_id": "12345",
 	"first_name": "John",
 	"last_name": "Doe",
@@ -353,10 +358,11 @@ const createBooking = async () => {
 ```json
 {
   "booking": {
-    "request_id": "9876",
+    "request_id": "19",
     "reseller_id": "12",
-    "flight_id": "12345",
-    "effective_price": 215,
+    "flight_id": "20222",
+    "effective_price": 250,
+    "effective_infant_price": 75,
     "pnr_reference": "K9IR6XLGQ",
     "reseller_field": {
       "id": "12345"
@@ -382,35 +388,36 @@ const createBooking = async () => {
 	"is_infant": false
       }
     ],
-    "effective_infant_price": 30,
-    "created_at": "2018-07-12T16:07:31.628Z",
+    "created_at": "2018-10-16T15:02:42.441Z",
     "id": "8765"
   },
   "flight": {
-    "origin": {
-      "iata_code": "CDG",
-      "country_name": "France",
-      "city_name": "Paris",
-      "timezone": "Europe/Paris",
-    },
-    "destination": {
-      "iata_code": "DJE",
-      "country_name": "Tunisia",
-      "city_name": "Djerba",
-      "timezone": "Africa/Tunis",
-    },
-    "departure_date": "2018-08-29T15:00:00.000Z",
-    "arrival_date": "2018-08-29T18:00:00.000Z",
-    "organization": {
-      "name": "Demo"
-    },
-    "airline": {
-      "id": "345",
-      "name": "SmartWings",
-      "iata_code": "QS",
-      "created_at": "2018-03-06T15:57:28.034Z",
-      "updated_at": "2018-07-06T06:15:38.742Z"
-    }
+     "id": 20222,
+     "origin": {
+	  "iata_code": "CDG",
+	  "city_name": "Paris",
+	  "country_name": "France",
+	  "timezone": "Europe/Paris"
+     },
+     "destination": {
+	  "iata_code": "PMI",
+	  "city_name": "Palma de Majorque",
+	  "country_name": "Espagne",
+	  "timezone": "Europe/Madrid"
+     },
+     "departure_date": "2018-11-29T09:00:00.000Z",
+     "arrival_date": "2018-11-29T15:00:00.000Z",
+     "organization": {
+	  "name": "Orga-1"
+     },
+     "cabin_class": "economy",
+     "booking_class": "Y",
+     "included_airport_tax": 30,
+     "airline": {
+	  "name": "CitizenPlane",
+	  "operated_by": "ASL Airlines France"
+     }
+   }
   }
 }
 ```
