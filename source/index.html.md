@@ -137,7 +137,7 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
-  "flight_id": "20222",
+  "flight_id": 20222,
     "passengers": {
         "adults": 2,
         "children": 0,
@@ -159,7 +159,7 @@ const createRequest = async () => {
       },
       json: true,
       body: {
-	flight_id: "20222",
+	flight_id: 20222,
 	passengers: {
 	  adults: 2,
 	  children: 0,
@@ -179,7 +179,7 @@ const createRequest = async () => {
 ```json
 {
     "id": 19,
-    "seats": 1,
+    "seats": 2,
     "effective_price": 273,
     "created_at": "2018-10-16T15:02:28.797Z",
     "flight": {
@@ -268,7 +268,7 @@ passengers | *object* | **required** | An object containing the passenger count 
 
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
-  "request_id": "19",
+  "request_id": 19,
   "booking_id": "12345",
   "first_name": "John",
   "last_name": "Doe",
@@ -314,7 +314,7 @@ const createBooking = async () => {
       },
       json: true,
       body: {
-	"request_id": "19",
+	"request_id": 19,
         "booking_id": "12345",
 	"first_name": "John",
 	"last_name": "Doe",
@@ -358,20 +358,13 @@ const createBooking = async () => {
 ```json
 {
   "booking": {
-    "request_id": "19",
-    "reseller_id": "12",
-    "flight_id": "20222",
+    "flight_id": 20222,
     "effective_price": 250,
     "effective_infant_price": 75,
     "pnr_reference": "K9IR6XLGQ",
-    "reseller_field": {
-      "id": "12345"
-    },
     "first_name": "John",
     "last_name": "Doe",
     "gender": "male",
-    "email": "john.doe@example.com",
-    "phonenumber": "+33600000000",
     "passenger_count": 2,
     "infant_count": 0,
     "passengers": [
