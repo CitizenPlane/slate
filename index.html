@@ -279,7 +279,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights?origin=CDG&amp;destination=DJE&amp;start=2018-08-07&amp;end=2018-08-30&amp;seats=2"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span>
   -H <span class="s2">"Accept: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer {your_api_token}"</span>
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
@@ -288,7 +288,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
   <span class="k">try</span> <span class="p">{</span>
     <span class="kr">const</span> <span class="nx">flights</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">rp</span><span class="p">({</span>
       <span class="na">method</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
-      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/v1/flights?origin=CDG&amp;destination=DJE&amp;start=2018-08-07&amp;end=2018-08-30&amp;seats=2"</span><span class="p">,</span>
+      <span class="na">uri</span><span class="p">:</span> <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span><span class="p">,</span>
       <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span> <span class="s2">"Bearer {your_api_token}"</span>
       <span class="p">}</span>
@@ -305,24 +305,24 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"flight_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QS1234"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T15:00:00.000Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T18:00:00.000Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"organization_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flight_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5O7892"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PMI"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">273</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"available_seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CitizenPlane"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"operated_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transavia"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Djerba"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"online_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+      </span><span class="s2">"cabin_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"economy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"booking_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"online_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"included_airport_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-29 10:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-29 16:00"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
@@ -400,7 +400,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <p>Example request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
-  "flight_id": "12345",
+  "flight_id": "20222",
     "passengers": {
         "adults": 2,
         "children": 0,
@@ -419,7 +419,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="p">},</span>
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">flight_id</span><span class="p">:</span> <span class="s2">"12345"</span><span class="p">,</span>
+    <span class="na">flight_id</span><span class="p">:</span> <span class="s2">"20222"</span><span class="p">,</span>
     <span class="na">passengers</span><span class="p">:</span> <span class="p">{</span>
       <span class="na">adults</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
       <span class="na">children</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -437,31 +437,36 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <p>Example response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-12T11:57:28.217Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"formatted_date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"departure"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"August 29th 2018"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17:00"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"arrival"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"August 29th 2018"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19:00"</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seats"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">273</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16T15:02:28.797Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"formatted_date"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"departure"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"November 29th 2018"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10:00"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"arrival"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"November 29th 2018"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16:00"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PMI"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">273</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"online_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CitizenPlane"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"operated_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transavia"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint creates a booking request on a flight (identified by its id). A booking request holds the number of seats set in the request payload for <strong>fifteen minutes</strong>. Seat and infant prices won&#39;t be subject to any changes during this time period.</p>
@@ -530,7 +535,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <p>Example request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
-  "request_id": "9876",
+  "request_id": "19",
   "booking_id": "12345",
   "first_name": "John",
   "last_name": "Doe",
@@ -573,7 +578,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="p">},</span>
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"request_id"</span><span class="p">:</span> <span class="s2">"9876"</span><span class="p">,</span>
+    <span class="s2">"request_id"</span><span class="p">:</span> <span class="s2">"19"</span><span class="p">,</span>
         <span class="s2">"booking_id"</span><span class="p">:</span> <span class="s2">"12345"</span><span class="p">,</span>
     <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
     <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
@@ -616,10 +621,11 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"booking"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"reseller_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20222"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"effective_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"effective_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
     </span><span class="s2">"pnr_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K9IR6XLGQ"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"reseller_field"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
@@ -645,35 +651,36 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"effective_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-12T16:07:31.628Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16T15:02:42.441Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8765"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"origin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDG"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Paris"</span><span class="p">,</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJE"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tunisia"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Djerba"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Africa/Tunis"</span><span class="p">,</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T15:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-08-29T18:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"345"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SmartWings"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QS"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-06T15:57:28.034Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-06T06:15:38.742Z"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Paris"</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="s2">"destination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iata_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PMI"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Palma de Majorque"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Espagne"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Madrid"</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-29T09:00:00.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-11-29T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orga-1"</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="s2">"cabin_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"economy"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"booking_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"included_airport_tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CitizenPlane"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"operated_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASL Airlines France"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
