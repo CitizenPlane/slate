@@ -98,7 +98,7 @@ const getFlights = async () => {
       },
       "luggage": 15,
       "online_price": 215,
-      "infant_price": 30
+      "online_infant_price": 30
     },
     {...},
     {...}
