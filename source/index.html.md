@@ -362,8 +362,13 @@ const createBooking = async () => {
     "effective_price": 250,
     "effective_infant_price": 75,
     "pnr_reference": "K9IR6XLGQ",
+    "reseller_fields": {
+      "id": "12345"
+    },
     "first_name": "John",
     "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "phonenumber": "+33600000000",
     "gender": "male",
     "passenger_count": 2,
     "infant_count": 0,
