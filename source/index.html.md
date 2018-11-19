@@ -2,8 +2,12 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-- shell: curl
+- shell: cURL
 - javascript--nodejs: Node
+- ruby: Ruby
+- python: Python
+- java: Java
+- go: Go
 
 toc_footers:
 - <a href="mailto:tech@citizenplane.com" target="_blank">Contact CitizenPlane</a>
@@ -73,6 +77,37 @@ const getFlights = async () => {
     console.log(err)
  }
 }
+```
+
+```ruby
+require 'rest-client'
+
+response = RestClient.get 'https://booking-api.citizenplane.com/v1/flights', {:Authorization => 'Bearer {your_api_token}'}
+```
+
+```python
+import requests
+
+r = requests.get('https://booking-api.citizenplane.com/v1/flights', headers={ 'Authorization': 'Bearer {your_api_token}' })
+```
+
+```go
+import (
+        "fmt"
+        "io/ioutil"
+        "net/http"
+)
+
+client := &http.Client{}
+        req, _ := http.NewRequest("GET", "https://booking-api.citizenplane.com/v1/flights", nil)
+        req.Header.Add("Accept", "application/json")
+        req.Header.Add("Authorization", "{your_api_token}")
+
+        resp, _ := client.Do(req)
+
+        defer resp.Body.Close()
+        body, _ := ioutil.ReadAll(resp.Body)
+        fmt.Println(string(body))
 ```
 
 > Example response
@@ -174,6 +209,63 @@ const createRequest = async () => {
 }
 ```
 
+```ruby
+require 'rest-client'
+require 'json'
+
+payload = {
+  :flight_id => 20222,
+  :passengers => {
+	:adults => 2
+	:children => 0
+	:infants => 0
+  }
+}
+
+response = RestClient.post 'https://booking-api.citizenplane.com/v1/requests', payload.to_json, {content_type: :json, :Authorization => 'Bearer {your_api_token}'}
+```
+
+```python
+import requests
+
+r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
+    }, json={
+        "flight_id": 20222,
+        "passengers": {
+            "adults": 2,
+            "children": 0,
+            "infants": 0
+        }
+    }
+)
+```
+
+```go
+import (
+        "bytes"
+        "fmt"
+        "io/ioutil"
+        "net/http"
+)
+
+payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
+        req, _ = http.NewRequest(
+                "POST",
+                "https://booking-api.citizenplane.com/v1/requests",
+                bytes.NewReader(payload),
+        )
+        req.Header.Add("Content-Type", "application/json")
+        req.Header.Add("Accept", "application/json")
+        req.Header.Add("Authorization", "{your_api_token}")
+
+        resp, _ = client.Do(req)
+        defer resp.Body.Close()
+        body, _ = ioutil.ReadAll(resp.Body)
+        fmt.Println(string(body))
+```
+
+
 > Example response
 
 ```json
@@ -203,6 +295,7 @@ const createRequest = async () => {
         },
         "online_price": 273,
         "online_infant_price": 75,
+        "cc_fee": 0.2,
         "airline": {
             "name": "CitizenPlane",
             "operated_by": "Transavia"
@@ -264,6 +357,88 @@ passengers | *object* | **required** | An object containing the passenger count 
 
 ## Confirm a request and create a booking
 
+> Generate a card token with Stripe
+
+```shell
+curl https://api.stripe.com/v1/tokens \
+   -u rk_test_wZGrX11MrIkESU5ja9mpOoL9: \
+   -d card[number]=4242424242424242 \
+   -d card[exp_month]=12 \
+   -d card[exp_year]=2019 \
+   -d card[cvc]=123
+```
+
+```ruby
+require "stripe"
+Stripe.api_key = "rk_test_wZGrX11MrIkESU5ja9mpOoL9"
+
+Stripe::Token.create(
+  :card => {
+    :number => "4242424242424242",
+    :exp_month => 11,
+    :exp_year => 2019,
+    :cvc => "314"
+  },
+)
+```
+
+```python
+require "stripe"
+Stripe.api_key = "rk_test_wZGrX11MrIkESU5ja9mpOoL9"
+
+Stripe::Token.create(
+  :card => {
+    :number => "4242424242424242",
+    :exp_month => 11,
+    :exp_year => 2019,
+    :cvc => "314"
+  },
+)
+```
+
+```java
+Stripe.apiKey = "rk_test_wZGrX11MrIkESU5ja9mpOoL9";
+
+Map<String, Object> tokenParams = new HashMap<String, Object>();
+Map<String, Object> cardParams = new HashMap<String, Object>();
+cardParams.put("number", "4242424242424242");
+cardParams.put("exp_month", 11);
+cardParams.put("exp_year", 2019);
+cardParams.put("cvc", "314");
+tokenParams.put("card", cardParams);
+
+Token.create(tokenParams);
+```
+
+```javascript--nodejs
+const stripe = require("stripe")("rk_test_wZGrX11MrIkESU5ja9mpOoL9");
+
+stripe.tokens.create({
+  card: {
+    "number": '4242424242424242',
+    "exp_month": 12,
+    "exp_year": 2019,
+    "cvc": '123'
+  }
+}, function(err, token) {
+  // asynchronously called
+});
+```
+
+```go
+stripe.Key = "rk_test_wZGrX11MrIkESU5ja9mpOoL9"
+
+params := &stripe.TokenParams{
+Card: &stripe.CardParams{
+    Number: stripe.String("4242424242424242"),
+        ExpMonth: stripe.String("12"),
+            ExpYear: stripe.String("2019"),
+                CVC: stripe.String("123"),
+      },
+}
+t, err := token.New(params)
+```
+
 > Example request
 
 ```shell
@@ -291,13 +466,7 @@ curl POST --header 'Content-Type: application/json' --header 'Accept: applicatio
       "is_infant": false
     }
   ],
-  "card_data": {
-    "number": "4242424242424242",
-    "exp_year": 2019,
-    "exp_month": 11,
-    "cvc": "555",
-    "name": "John Doe"
-  }
+  "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
 }' 'https://booking-api.citizenplane.com/v1/bookings'
 ```
 
@@ -337,13 +506,7 @@ const createBooking = async () => {
 	    "is_infant": false
 	  }
 	],
-	"card_data": {
-	  "number": "4242424242424242",
-	  "exp_year": 2019,
-	  "exp_month": 11,
-	  "cvc": "555",
-	  "name": "John Doe"
-	}
+	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
       }
     })
     return booking
@@ -352,6 +515,125 @@ const createBooking = async () => {
   }
 }
 ```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+payload = {
+  :request_id => 19,
+  :booking_id => "12345",
+  :first_name => "John",
+  :last_name => "Doe",
+  :gender => "male",
+  :email => "john.doe@example.com",
+  :phonenumber => "+33600000000",
+  :passenger_count => 2,
+  :infant_count => 0,
+  :passengers => [
+    {
+      :first_name => "John",
+      :last_name => "Doe",
+      :gender => "male",
+      :is_infant => false
+    },
+    {
+      :first_name => "Jane",
+      :last_name => "Doe",
+      :gender => "female",
+      :is_infant => false
+    }
+  ],
+  :card_token => "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+}
+
+response = RestClient.post 'https://booking-api.citizenplane.com/v1/bookings', payload.to_json, {content_type: :json, :Authorization => 'Bearer {your_api_token}'}
+```
+
+```python
+import requests
+
+r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
+    }, json={
+        "request_id": 19,
+        "booking_id": "12345",
+	"first_name": "John",
+	"last_name": "Doe",
+	"gender": "male",
+	"email": "john.doe@example.com",
+	"phonenumber": "+33600000000",
+	"passenger_count": 2,
+	"infant_count": 0,
+	"passengers": [
+	  {
+	    "first_name": "John",
+	    "last_name": "Doe",
+	    "gender": "male",
+	    "is_infant": False
+	  },
+	  {
+	    "first_name": "Jane",
+	    "last_name": "Doe",
+	    "gender": "female",
+	    "is_infant": False
+	  }
+	],
+	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+    }
+)
+```
+
+```go
+import (
+        "bytes"
+        "fmt"
+        "io/ioutil"
+        "net/http"
+)
+
+payload = []byte(`{
+            "request_id": 19,
+            "booking_id": "12345",
+            "first_name": "John",
+            "last_name": "Doe",
+            "gender": "male",
+            "email": "john.doe@example.com",
+            "phonenumber": "+33600000000",
+            "passenger_count": 2,
+            "infant_count": 0,
+            "passengers": [
+              {
+                "first_name": "John",
+                "last_name": "Doe",
+                "gender": "male",
+                "is_infant": false
+              },
+              {
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "gender": "female",
+                "is_infant": false
+              }
+            ],
+            "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+          }`)
+
+        req, _ = http.NewRequest(
+                "POST",
+                "https://booking-api.citizenplane.com/v1/bookings",
+                bytes.NewReader(payload),
+        )
+        req.Header.Add("Content-Type", "application/json")
+        req.Header.Add("Accept", "application/json")
+        req.Header.Add("Authorization", "{your_api_token}")
+
+        resp, _ = client.Do(req)
+        defer resp.Body.Close()
+        body, _ = ioutil.ReadAll(resp.Body)
+        fmt.Println(string(body))
+```
+
 
 > Example response
 
@@ -424,10 +706,14 @@ This endpoint confirms the previously created booking request and processes the 
 
 <aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as aborted and the process is to be started again.</aside>
 
+### Generating a card token
+
+CitizenPlane's API uses (<a href="https://stripe.com">Stripe</a>) to process payments. In order to be PCI-compliant, CitizenPlane cannot directly process the customer's credit card data. Before sending your booking requests, you need to generate a credit card token by sending the card data to Stripe and then send the token alongside booking data to CitizenPlane's API.
+To generate a token, you'll need to install Stripe's package and uses an api_key you will be given by CitizenPlane.
+
 ### HTTP request
 
 `POST https://booking-api.citizenplane.com/v1/bookings`
-
 
 <aside class="success">To test this endpoint, <a href="https://booking-api.citizenplane.com/documentation#/bookings" target="_blank">click here</a>.</aside>
 
