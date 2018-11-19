@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript--nodejs&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;,&quot;go&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,8 +211,12 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">curl</a>
+              <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="javascript--nodejs">Node</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
+              <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="java">Java</a>
+              <a href="#" data-language-name="go">Go</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -298,7 +302,29 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
  <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'https://booking-api.citizenplane.com/v1/flights'</span><span class="p">,</span> <span class="p">{</span><span class="ss">:Authorization</span> <span class="o">=&gt;</span> <span class="s1">'Bearer {your_api_token}'</span><span class="p">}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://booking-api.citizenplane.com/v1/flights'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span> <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer {your_api_token}'</span> <span class="p">})</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"fmt"</span><span class="x">
+        </span><span class="s">"io/ioutil"</span><span class="x">
+        </span><span class="s">"net/http"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="n">client</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span><span class="x">
+        </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span><span class="x"> </span><span class="s">"https://booking-api.citizenplane.com/v1/flights"</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Accept"</span><span class="p">,</span><span class="x"> </span><span class="s">"application/json"</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Authorization"</span><span class="p">,</span><span class="x"> </span><span class="s">"{your_api_token}"</span><span class="p">)</span><span class="x">
+
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="x">
+
+        </span><span class="k">defer</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+        </span><span class="n">body</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="kt">string</span><span class="p">(</span><span class="n">body</span><span class="p">))</span><span class="x">
+</span></code></pre>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -432,7 +458,54 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:flight_id</span> <span class="o">=&gt;</span> <span class="mi">20222</span><span class="p">,</span>
+  <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span>
+    <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+    <span class="ss">:infants</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'https://booking-api.citizenplane.com/v1/requests'</span><span class="p">,</span> <span class="n">payload</span><span class="p">.</span><span class="nf">to_json</span><span class="p">,</span> <span class="p">{</span><span class="ss">content_type: :json</span><span class="p">,</span> <span class="ss">:Authorization</span> <span class="o">=&gt;</span> <span class="s1">'Bearer {your_api_token}'</span><span class="p">}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://booking-api.citizenplane.com/v1/requests'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
+    <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
+        <span class="s">"passengers"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">"infants"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"bytes"</span><span class="x">
+        </span><span class="s">"fmt"</span><span class="x">
+        </span><span class="s">"io/ioutil"</span><span class="x">
+        </span><span class="s">"net/http"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="x">
+                </span><span class="s">"POST"</span><span class="p">,</span><span class="x">
+                </span><span class="s">"https://booking-api.citizenplane.com/v1/requests"</span><span class="p">,</span><span class="x">
+                </span><span class="n">bytes</span><span class="o">.</span><span class="n">NewReader</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span><span class="x">
+        </span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span><span class="x"> </span><span class="s">"application/json"</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Accept"</span><span class="p">,</span><span class="x"> </span><span class="s">"application/json"</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Authorization"</span><span class="p">,</span><span class="x"> </span><span class="s">"{your_api_token}"</span><span class="p">)</span><span class="x">
+
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="x">
+        </span><span class="k">defer</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+        </span><span class="n">body</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="kt">string</span><span class="p">(</span><span class="n">body</span><span class="p">))</span><span class="x">
+</span></code></pre>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -462,6 +535,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"online_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">273</span><span class="p">,</span><span class="w">
         </span><span class="s2">"online_infant_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w">
         </span><span class="s2">"airline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CitizenPlane"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"operated_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transavia"</span><span class="w">
@@ -532,6 +606,72 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </table></p>
 <h2 id='confirm-a-request-and-create-a-booking'>Confirm a request and create a booking</h2>
 <blockquote>
+<p>Generate a card token with Stripe</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://api.stripe.com/v1/tokens <span class="se">\</span>
+   -u rk_test_wZGrX11MrIkESU5ja9mpOoL9: <span class="se">\</span>
+   -d card[number]<span class="o">=</span>4242424242424242 <span class="se">\</span>
+   -d card[exp_month]<span class="o">=</span>12 <span class="se">\</span>
+   -d card[exp_year]<span class="o">=</span>2019 <span class="se">\</span>
+   -d card[cvc]<span class="o">=</span>123
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"stripe"</span>
+<span class="no">Stripe</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"rk_test_wZGrX11MrIkESU5ja9mpOoL9"</span>
+
+<span class="no">Stripe</span><span class="o">::</span><span class="no">Token</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+  <span class="ss">:card</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="ss">:number</span> <span class="o">=&gt;</span> <span class="s2">"4242424242424242"</span><span class="p">,</span>
+    <span class="ss">:exp_month</span> <span class="o">=&gt;</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="ss">:exp_year</span> <span class="o">=&gt;</span> <span class="mi">2019</span><span class="p">,</span>
+    <span class="ss">:cvc</span> <span class="o">=&gt;</span> <span class="s2">"314"</span>
+  <span class="p">},</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">require</span> <span class="s">"stripe"</span>
+<span class="n">Stripe</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">"rk_test_wZGrX11MrIkESU5ja9mpOoL9"</span>
+
+<span class="n">Stripe</span><span class="p">::</span><span class="n">Token</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="p">:</span><span class="n">card</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">:</span><span class="n">number</span> <span class="o">=&gt;</span> <span class="s">"4242424242424242"</span><span class="p">,</span>
+    <span class="p">:</span><span class="n">exp_month</span> <span class="o">=&gt;</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="p">:</span><span class="n">exp_year</span> <span class="o">=&gt;</span> <span class="mi">2019</span><span class="p">,</span>
+    <span class="p">:</span><span class="n">cvc</span> <span class="o">=&gt;</span> <span class="s">"314"</span>
+  <span class="p">},</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight java tab-java"><code><span class="n">Stripe</span><span class="o">.</span><span class="na">apiKey</span> <span class="o">=</span> <span class="s">"rk_test_wZGrX11MrIkESU5ja9mpOoL9"</span><span class="o">;</span>
+
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">tokenParams</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">cardParams</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">cardParams</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"number"</span><span class="o">,</span> <span class="s">"4242424242424242"</span><span class="o">);</span>
+<span class="n">cardParams</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"exp_month"</span><span class="o">,</span> <span class="mi">11</span><span class="o">);</span>
+<span class="n">cardParams</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"exp_year"</span><span class="o">,</span> <span class="mi">2019</span><span class="o">);</span>
+<span class="n">cardParams</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"cvc"</span><span class="o">,</span> <span class="s">"314"</span><span class="o">);</span>
+<span class="n">tokenParams</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"card"</span><span class="o">,</span> <span class="n">cardParams</span><span class="o">);</span>
+
+<span class="n">Token</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">tokenParams</span><span class="o">);</span>
+</code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">stripe</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"stripe"</span><span class="p">)(</span><span class="s2">"rk_test_wZGrX11MrIkESU5ja9mpOoL9"</span><span class="p">);</span>
+
+<span class="nx">stripe</span><span class="p">.</span><span class="nx">tokens</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">card</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"number"</span><span class="p">:</span> <span class="s1">'4242424242424242'</span><span class="p">,</span>
+    <span class="s2">"exp_month"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s2">"exp_year"</span><span class="p">:</span> <span class="mi">2019</span><span class="p">,</span>
+    <span class="s2">"cvc"</span><span class="p">:</span> <span class="s1">'123'</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// asynchronously called</span>
+<span class="p">});</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="n">stripe</span><span class="o">.</span><span class="n">Key</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="s">"rk_test_wZGrX11MrIkESU5ja9mpOoL9"</span><span class="x">
+
+</span><span class="n">params</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">stripe</span><span class="o">.</span><span class="n">TokenParams</span><span class="p">{</span><span class="x">
+</span><span class="n">Card</span><span class="o">:</span><span class="x"> </span><span class="o">&amp;</span><span class="n">stripe</span><span class="o">.</span><span class="n">CardParams</span><span class="p">{</span><span class="x">
+    </span><span class="n">Number</span><span class="o">:</span><span class="x"> </span><span class="n">stripe</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"4242424242424242"</span><span class="p">),</span><span class="x">
+        </span><span class="n">ExpMonth</span><span class="o">:</span><span class="x"> </span><span class="n">stripe</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"12"</span><span class="p">),</span><span class="x">
+            </span><span class="n">ExpYear</span><span class="o">:</span><span class="x"> </span><span class="n">stripe</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"2019"</span><span class="p">),</span><span class="x">
+                </span><span class="n">CVC</span><span class="o">:</span><span class="x"> </span><span class="n">stripe</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"123"</span><span class="p">),</span><span class="x">
+      </span><span class="p">},</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">token</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="x">
+</span></code></pre>
+<blockquote>
 <p>Example request</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
@@ -558,13 +698,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       "is_infant": false
     }
   ],
-  "card_data": {
-    "number": "4242424242424242",
-    "exp_year": 2019,
-    "exp_month": 11,
-    "cvc": "555",
-    "name": "John Doe"
-  }
+  "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
 }'</span> <span class="s1">'https://booking-api.citizenplane.com/v1/bookings'</span>
 </code></pre><pre class="highlight javascript tab-javascript--nodejs"><code><span class="kr">const</span> <span class="nx">rp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"request-promise"</span><span class="p">)</span>
 
@@ -601,13 +735,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span>
       <span class="p">}</span>
     <span class="p">],</span>
-    <span class="s2">"card_data"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"number"</span><span class="p">:</span> <span class="s2">"4242424242424242"</span><span class="p">,</span>
-      <span class="s2">"exp_year"</span><span class="p">:</span> <span class="mi">2019</span><span class="p">,</span>
-      <span class="s2">"exp_month"</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
-      <span class="s2">"cvc"</span><span class="p">:</span> <span class="s2">"555"</span><span class="p">,</span>
-      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John Doe"</span>
-    <span class="p">}</span>
+    <span class="s2">"card_token"</span><span class="p">:</span> <span class="s2">"tok_1CXrzBCLoBt04Rh8XWrZH34S"</span>
       <span class="p">}</span>
     <span class="p">})</span>
     <span class="k">return</span> <span class="nx">booking</span>
@@ -615,7 +743,116 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:request_id</span> <span class="o">=&gt;</span> <span class="mi">19</span><span class="p">,</span>
+  <span class="ss">:booking_id</span> <span class="o">=&gt;</span> <span class="s2">"12345"</span><span class="p">,</span>
+  <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
+  <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
+  <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"male"</span><span class="p">,</span>
+  <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@example.com"</span><span class="p">,</span>
+  <span class="ss">:phonenumber</span> <span class="o">=&gt;</span> <span class="s2">"+33600000000"</span><span class="p">,</span>
+  <span class="ss">:passenger_count</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="ss">:infant_count</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
+      <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"male"</span><span class="p">,</span>
+      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"Jane"</span><span class="p">,</span>
+      <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
+      <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"female"</span><span class="p">,</span>
+      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="ss">:card_token</span> <span class="o">=&gt;</span> <span class="s2">"tok_1CXrzBCLoBt04Rh8XWrZH34S"</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">post</span> <span class="s1">'https://booking-api.citizenplane.com/v1/bookings'</span><span class="p">,</span> <span class="n">payload</span><span class="p">.</span><span class="nf">to_json</span><span class="p">,</span> <span class="p">{</span><span class="ss">content_type: :json</span><span class="p">,</span> <span class="ss">:Authorization</span> <span class="o">=&gt;</span> <span class="s1">'Bearer {your_api_token}'</span><span class="p">}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://booking-api.citizenplane.com/v1/requests'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
+    <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+        <span class="s">"booking_id"</span><span class="p">:</span> <span class="s">"12345"</span><span class="p">,</span>
+    <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
+    <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
+    <span class="s">"gender"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
+    <span class="s">"email"</span><span class="p">:</span> <span class="s">"john.doe@example.com"</span><span class="p">,</span>
+    <span class="s">"phonenumber"</span><span class="p">:</span> <span class="s">"+33600000000"</span><span class="p">,</span>
+    <span class="s">"passenger_count"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s">"infant_count"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"passengers"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
+        <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
+        <span class="s">"gender"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
+        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"Jane"</span><span class="p">,</span>
+        <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
+        <span class="s">"gender"</span><span class="p">:</span> <span class="s">"female"</span><span class="p">,</span>
+        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"card_token"</span><span class="p">:</span> <span class="s">"tok_1CXrzBCLoBt04Rh8XWrZH34S"</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight go tab-go"><code><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="s">"bytes"</span><span class="x">
+        </span><span class="s">"fmt"</span><span class="x">
+        </span><span class="s">"io/ioutil"</span><span class="x">
+        </span><span class="s">"net/http"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="n">payload</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{
+            "request_id": 19,
+            "booking_id": "12345",
+            "first_name": "John",
+            "last_name": "Doe",
+            "gender": "male",
+            "email": "john.doe@example.com",
+            "phonenumber": "+33600000000",
+            "passenger_count": 2,
+            "infant_count": 0,
+            "passengers": [
+              {
+                "first_name": "John",
+                "last_name": "Doe",
+                "gender": "male",
+                "is_infant": false
+              },
+              {
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "gender": "female",
+                "is_infant": false
+              }
+            ],
+            "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+          }`</span><span class="p">)</span><span class="x">
+
+        </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="x">
+                </span><span class="s">"POST"</span><span class="p">,</span><span class="x">
+                </span><span class="s">"https://booking-api.citizenplane.com/v1/bookings"</span><span class="p">,</span><span class="x">
+                </span><span class="n">bytes</span><span class="o">.</span><span class="n">NewReader</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span><span class="x">
+        </span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Content-Type"</span><span class="p">,</span><span class="x"> </span><span class="s">"application/json"</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Accept"</span><span class="p">,</span><span class="x"> </span><span class="s">"application/json"</span><span class="p">)</span><span class="x">
+        </span><span class="n">req</span><span class="o">.</span><span class="n">Header</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Authorization"</span><span class="p">,</span><span class="x"> </span><span class="s">"{your_api_token}"</span><span class="p">)</span><span class="x">
+
+        </span><span class="n">resp</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="x">
+        </span><span class="k">defer</span><span class="x"> </span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+        </span><span class="n">body</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">ioutil</span><span class="o">.</span><span class="n">ReadAll</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="kt">string</span><span class="p">(</span><span class="n">body</span><span class="p">))</span><span class="x">
+</span></code></pre>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -685,6 +922,9 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <p>This endpoint confirms the previously created booking request and processes the booking as well as the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s).</p>
 
 <aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as aborted and the process is to be started again.</aside>
+<h3 id='generating-a-card-token'>Generating a card token</h3>
+<p>CitizenPlane&#39;s API uses (<a href="https://stripe.com">Stripe</a>) to process payments. In order to be PCI-compliant, CitizenPlane cannot directly process the customer&#39;s credit card data. Before sending your booking requests, you need to generate a credit card token by sending the card data to Stripe and then send the token alongside booking data to CitizenPlane&#39;s API.
+To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an api_key you will be given by CitizenPlane.</p>
 <h3 id='http-request-3'>HTTP request</h3>
 <p><code>POST https://booking-api.citizenplane.com/v1/bookings</code></p>
 
@@ -961,8 +1201,12 @@ CitizenPlane uses conventional HTTP response codes to indicate the success or fa
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">curl</a>
+                <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="javascript--nodejs">Node</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
+                <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="java">Java</a>
+                <a href="#" data-language-name="go">Go</a>
           </div>
       </div>
     </div>
