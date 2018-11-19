@@ -1031,10 +1031,10 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>An object containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.</td>
 </tr>
 <tr>
-<td>card_data</td>
-<td><em>object</em></td>
+<td>card_token</td>
+<td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>An object containing the customer&#39;s credit card information. <a href="#booking-card-info">See child arguments</a>.</td>
+<td>A token obtained by sending credit card information to Stripe&#39;s <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.</td>
 </tr>
 </tbody></table>
 
@@ -1112,49 +1112,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
   </tbody>
 </table></p>
 
-<p><br/>
-<br/></p>
-<h4 id='49032490bf'><table id="booking-card-info"></h4>
-<p><caption><b>card_data child arguments</b></caption>
-  <tbody>
-    <tr>
-      <th align="left">Parameter</th>
-      <th align="left">Type</th>
-      <th align="left">Status</th>
-      <th align="left">Description</th>
-    </tr>
-    <tr>
-      <td align="left">number</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer&#39;s card number.</td>
-    </tr>
-    <tr>
-      <td align="left">exp_year</td>
-      <td align="left"><i>integer</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer&#39;s card expiration year (format <code>YYYY</code>).</td>
-    </tr>
-    <tr>
-      <td align="left">exp_month</td>
-      <td align="left"><i>integer</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer&#39;s card expiration month (format <code>MM</code>).</td>
-    </tr>
-    <tr>
-      <td align="left">cvc</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">Card security code. Only required for accounts based in European countries but highly recommended for other countries.</td>
-    </tr>
-    <tr>
-      <td align="left">name</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b><em>optional</em></b></td>
-      <td align="left">The cardholder&#39;s full name.</td>
-    </tr>
-  </tbody>
-</table></p>
+<p><br/></p>
 <h1 id='testing'>Testing</h1>
 <p>CitizenPlane&#39;s API has a sandbox mode allowing you to safely test your integration with us. In order to do so, you will need a test token, which will give you access to our demo flights. You will be able to test our different endpoints without actually booking any seats or processing any payments.</p>
 
