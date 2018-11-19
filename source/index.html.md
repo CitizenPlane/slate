@@ -739,7 +739,7 @@ postal_code | *string* | *optional* | The customer's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
 passengers | *object* | **required** | An object containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
-card_data | *object* | **required** | An object containing the customer's credit card information. <a href="#booking-card-info">See child arguments</a>.
+card_token | *string* | **required** | A token obtained by sending credit card information to Stripe's <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.
 
 <br/>
 <br/>
@@ -817,49 +817,6 @@ card_data | *object* | **required** | An object containing the customer's credit
 </table>
 
 <br/>
-<br/>
-
-#### <table id="booking-card-info">
-  <caption><b>card_data child arguments</b></caption>
-  <tbody>
-    <tr>
-      <th align="left">Parameter</th>
-      <th align="left">Type</th>
-      <th align="left">Status</th>
-      <th align="left">Description</th>
-    </tr>
-    <tr>
-      <td align="left">number</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer's card number.</td>
-    </tr>
-    <tr>
-      <td align="left">exp_year</td>
-      <td align="left"><i>integer</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer's card expiration year (format `YYYY`).</td>
-    </tr>
-    <tr>
-      <td align="left">exp_month</td>
-      <td align="left"><i>integer</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">The customer's card expiration month (format `MM`).</td>
-    </tr>
-    <tr>
-      <td align="left">cvc</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>required</b></td>
-      <td align="left">Card security code. Only required for accounts based in European countries but highly recommended for other countries.</td>
-    </tr>
-    <tr>
-      <td align="left">name</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>*optional*</b></td>
-      <td align="left">The cardholder's full name.</td>
-    </tr>
-  </tbody>
-</table>
 
 # Testing
 
