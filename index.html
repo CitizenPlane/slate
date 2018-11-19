@@ -606,7 +606,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </table></p>
 <h2 id='confirm-a-request-and-create-a-booking'>Confirm a request and create a booking</h2>
 <blockquote>
-<p>Generate a card token with Stripe</p>
+<p>Card token generation</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl https://api.stripe.com/v1/tokens <span class="se">\</span>
    -u rk_test_wZGrX11MrIkESU5ja9mpOoL9: <span class="se">\</span>
@@ -672,7 +672,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">token</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="x">
 </span></code></pre>
 <blockquote>
-<p>Example request</p>
+<p>Booking request example</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "request_id": 19,
@@ -924,7 +924,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <aside class="notice">If the payment fails for any reason, the request associated to this booking will be considered as aborted and the process is to be started again.</aside>
 <h3 id='generating-a-card-token'>Generating a card token</h3>
 <p>CitizenPlane&#39;s API uses (<a href="https://stripe.com">Stripe</a>) to process payments. In order to be PCI-compliant, CitizenPlane cannot directly process the customer&#39;s credit card data. Before sending your booking requests, you need to generate a credit card token by sending the card data to Stripe and then send the token alongside booking data to CitizenPlane&#39;s API.
-To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an api_key you will be given by CitizenPlane.</p>
+To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an api_key you will be given by CitizenPlane. Follow the examples on the right to generate a card token using Stripe&#39;s API.</p>
 <h3 id='http-request-3'>HTTP request</h3>
 <p><code>POST https://booking-api.citizenplane.com/v1/bookings</code></p>
 
