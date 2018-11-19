@@ -357,7 +357,7 @@ passengers | *object* | **required** | An object containing the passenger count 
 
 ## Confirm a request and create a booking
 
-> Generate a card token with Stripe
+> Card token generation
 
 ```shell
 curl https://api.stripe.com/v1/tokens \
@@ -439,7 +439,7 @@ Card: &stripe.CardParams{
 t, err := token.New(params)
 ```
 
-> Example request
+> Booking request example
 
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
@@ -709,7 +709,7 @@ This endpoint confirms the previously created booking request and processes the 
 ### Generating a card token
 
 CitizenPlane's API uses (<a href="https://stripe.com">Stripe</a>) to process payments. In order to be PCI-compliant, CitizenPlane cannot directly process the customer's credit card data. Before sending your booking requests, you need to generate a credit card token by sending the card data to Stripe and then send the token alongside booking data to CitizenPlane's API.
-To generate a token, you'll need to install Stripe's package and uses an api_key you will be given by CitizenPlane.
+To generate a token, you'll need to install Stripe's package and uses an api_key you will be given by CitizenPlane. Follow the examples on the right to generate a card token using Stripe's API.
 
 ### HTTP request
 
