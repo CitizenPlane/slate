@@ -132,6 +132,7 @@ client := &http.Client{}
       "booking_class": "Y",
       "online_infant_price": 75,
       "included_airport_tax": 33,
+      "cc_fee": 0.2,
       "departure_date": "2018-11-29 10:00",
       "arrival_date": "2018-11-29 16:00"
     },
@@ -643,6 +644,7 @@ payload = []byte(`{
     "flight_id": 20222,
     "effective_price": 250,
     "effective_infant_price": 75,
+    "cc_fee": 0.2,
     "pnr_reference": "K9IR6XLGQ",
     "reseller_fields": {
       "id": "12345"
