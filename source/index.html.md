@@ -121,7 +121,7 @@ client := &http.Client{}
       "flight_number": "5O7892",
       "origin": "CDG",
       "destination": "PMI",
-      "online_price": 273,
+      "online_price": 278.46,
       "luggage": 20,
       "available_seats": 20,
       "airline": {
@@ -130,9 +130,9 @@ client := &http.Client{}
       },
       "cabin_class": "economy",
       "booking_class": "Y",
-      "online_infant_price": 75,
+      "online_infant_price": 76.5,
       "included_airport_tax": 33,
-      "cc_fee": 0.2,
+      "cc_fee": 0.02,
       "departure_date": "2018-11-29 10:00",
       "arrival_date": "2018-11-29 16:00"
     },
@@ -273,7 +273,7 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
 {
     "id": 19,
     "seats": 2,
-    "effective_price": 273,
+    "effective_price": 278.46,
     "created_at": "2018-10-16T15:02:28.797Z",
     "flight": {
         "id": 20222,
@@ -285,9 +285,9 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
         },
             "iata_code": "PMI"
         },
-        "online_price": 273,
-        "online_infant_price": 75,
-        "cc_fee": 0.2,
+        "online_price": 278.46,
+        "online_infant_price": 76.5,
+        "cc_fee": 0.02,
         "airline": {
             "name": "CitizenPlane",
             "operated_by": "Transavia"
@@ -633,9 +633,9 @@ payload = []byte(`{
 {
   "booking": {
     "flight_id": 20222,
-    "effective_price": 250,
-    "effective_infant_price": 75,
-    "cc_fee": 0.2,
+    "effective_price": 278.46,
+    "effective_infant_price": 76.5,
+    "cc_fee": 0.02,
     "pnr_reference": "K9IR6XLGQ",
     "reseller_fields": {
       "id": "12345"
