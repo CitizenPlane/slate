@@ -777,7 +777,7 @@ card_token | *string* | **required** | A token obtained by sending credit card i
     <tr>
       <td align="left">date_of_birth</td>
       <td align="left"><i>string</i></td>
-      <td align="left"><b>*optional*</b></td>
+      <td align="left"><b>required</b></td>
       <td align="left">Passenger's date of birth.</td>
     </tr>
     <tr>
