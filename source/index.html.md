@@ -277,21 +277,12 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
     "created_at": "2018-10-16T15:02:28.797Z",
     "flight": {
         "id": 20222,
-        "formatted_date": {
-            "departure": {
-                "date": "November 29th 2018",
-                "time": "10:00"
-            },
-            "arrival": {
-                "date": "November 29th 2018",
-                "time": "16:00"
-            }
-        },
+        "departure_date": "2018-10-29T10:00:00:000Z",
+        "arrival_date": "2018-10-29T16:00:00:000Z",
         "luggage": 20,
         "origin": {
             "iata_code": "CDG"
         },
-        "destination": {
             "iata_code": "PMI"
         },
         "online_price": 273,
