@@ -117,24 +117,33 @@ client := &http.Client{}
   "results": [
     {
       "id": 20222,
-      "organization_name": "Demo",
       "flight_number": "5O7892",
       "origin": "CDG",
       "destination": "PMI",
-      "price": 278.46,
-      "infant_price": 76.5,
-      "luggage": 20,
       "available_seats": 20,
+      "organization_name": "Demo",
+      "departure_date": "2018-11-29 10:00",
+      "arrival_date": "2018-11-29 16:00",
       "airline": {
           "name": "CitizenPlane",
-          "operated_by": "Transavia"
+          "operated_by": {
+            "name": "Transavia",
+            "iata_code": "HV"
+          }
       },
       "cabin_class": "economy",
       "booking_class": "Y",
-      "included_airport_tax": 33,
-      "cc_fee": 0.02,
-      "departure_date": "2018-11-29 10:00",
-      "arrival_date": "2018-11-29 16:00"
+      "price": 278.46,
+      "infant_price": 76.5,
+      "luggage_options": [
+        {
+          "weight": 20,
+          "quantity": 1,
+          "price": 25.5
+        }
+      ]
+      "included_airport_tax": 33.66
+      "cc_fee": 0.02
     },
     {...},
     {...}
@@ -174,6 +183,7 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "flight_id": 20222,
+  "reseller_id": 44,
     "passengers": {
         "adults": 2,
         "children": 0,
@@ -196,6 +206,7 @@ const createRequest = async () => {
       json: true,
       body: {
 	flight_id: 20222,
+        reseller_id: 44
 	passengers: {
 	  adults: 2,
 	  children: 0,
@@ -216,6 +227,7 @@ require 'json'
 
 payload = {
   :flight_id => 20222,
+  :reseller_id => 44,
   :passengers => {
 	:adults => 2
 	:children => 0
@@ -233,6 +245,7 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
         "flight_id": 20222,
+        "reseller_id": 44,
         "passengers": {
             "adults": 2,
             "children": 0,
@@ -250,7 +263,7 @@ import (
         "net/http"
 )
 
-payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
+payload := []byte(`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
         req, _ = http.NewRequest(
                 "POST",
                 "https://booking-api.citizenplane.com/v1/requests",
@@ -272,25 +285,54 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
 ```json
 {
     "id": 19,
-    "seats": 2,
-    "price": 278.46,
-    "infant_price": 76.5,
-    "cc_fee": 0.02,
+    "reseller_id": 44,
     "created_at": "2018-10-16T15:02:28.797Z",
+    "passengers": {
+        "adults": 2,
+        "children": 0,
+        "infants": 0
+    },
+    "price": 278.46,
+    "infant_price": null,
+    "totalPriceWithoutLuggages": 556.92,
+    "cc_fee": 0.02,
     "flight": {
         "id": 20222,
-        "departure_date": "2018-10-29T10:00:00:000Z",
-        "arrival_date": "2018-10-29T16:00:00:000Z",
-        "luggage": 20,
+        "flight_number": "5O7892"
         "origin": {
-            "iata_code": "CDG"
+            "iata_code": "CDG",
+            "city_name": "Paris",
+            "country_name": "France",
+            "timezone": "Europe/Paris"
         },
-            "iata_code": "PMI"
+        "destination": {
+            "iata_code": "PMI",
+            "city_name": "Palma de Majorque",
+            "country_name": "Espagne",
+            "timezone": "Europe/Madrid"
         },
+        "organization": {
+        "name": "Demo"
+        },
+        "departure_date": "2018-10-29 10:00",
+        "arrival_date": "2018-10-29 16:00",
         "airline": {
             "name": "CitizenPlane",
-            "operated_by": "Transavia"
-        }
+            "operated_by": {
+              "name": "Transavia",
+              "iata_code": "HV"
+            }
+        },
+        "cabin_class": "economy",
+        "booking_class": "Y",
+        "luggage_options": [
+          {
+            "weight": 20,
+            "quantity": 1,
+            "price": 0
+          }
+        ],
+        "included_airport_tax": 33.66
     }
 }
 ```
@@ -311,6 +353,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
+reseller_id | *integer* | **required** | The id of the reseller (the OTA) in CitizenPlane's system
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -457,6 +500,18 @@ curl POST --header 'Content-Type: application/json' --header 'Accept: applicatio
       "is_infant": false
     }
   ],
+  "luggages": [
+    {
+      "weight": 20,
+      "quantity": 1,
+      "price": 0
+    },
+    {
+      "weight": 20,
+      "quantity": 1,
+      "price": 0
+    },
+  ],
   "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
 }' 'https://booking-api.citizenplane.com/v1/bookings'
 ```
@@ -497,6 +552,18 @@ const createBooking = async () => {
 	    "is_infant": false
 	  }
 	],
+        "luggages": [
+            {
+              "weight": 20,
+              "quantity": 1,
+              "price": 0
+            },
+            {
+              "weight": 20,
+              "quantity": 1,
+              "price": 0
+            },
+          ],
 	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
       }
     })
@@ -535,6 +602,18 @@ payload = {
       :is_infant => false
     }
   ],
+  :luggages => [
+    {
+      :weight => 20,
+      :quantity => 1,
+      :price => 0
+    },
+    {
+      :weight => 20,
+      :quantity => 1,
+      :price => 0
+    }
+  ],
   :card_token => "tok_1CXrzBCLoBt04Rh8XWrZH34S"
 }
 
@@ -570,6 +649,18 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
 	    "is_infant": False
 	  }
 	],
+        "luggages": [
+          {
+            "weight": 20,
+            "quantity": 1,
+            "price": 0
+          },
+          {
+            "weight": 20,
+            "quantity": 1,
+            "price": 0
+          }
+        ],
 	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
     }
 )
@@ -607,6 +698,18 @@ payload = []byte(`{
                 "is_infant": false
               }
             ],
+            "luggages": [
+              {
+                "weight": 20,
+                "quantity": 1,
+                "price": 0
+              },
+              {
+                "weight": 20,
+                "quantity": 1,
+                "price": 0
+              }
+            ],
             "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
           }`)
 
@@ -633,13 +736,12 @@ payload = []byte(`{
   "booking": {
     "id": "8765",
     "flight_id": 20222,
-    "price": 278.46,
-    "infant_price": 76.5,
-    "cc_fee": 0.02,
-    "pnr_reference": "K9IR6XLGQ",
+    "request_id": 19,
+    "reseller_id": 44,
     "reseller_fields": {
       "id": "12345"
     },
+    "pnr_reference": "K9IR6XLGQ",
     "first_name": "John",
     "last_name": "Doe",
     "email": "john.doe@example.com",
@@ -661,6 +763,24 @@ payload = []byte(`{
 	"is_infant": false
       }
     ],
+    "luggages": [
+      {
+        "weight": 20,
+        "quantity": 1,
+        "price": 0
+      },
+      {
+        "weight": 20,
+        "quantity": 1,
+        "price": 0
+      },
+    ],
+    "distribution_channel": null,
+    "price": 278.46,
+    "infant_price": null,
+    "cc_fee": 0.02,
+    "totalPriceWithoutLuggages": 556.92,
+    "totalPriceWithLuggages": 556.92
     "created_at": "2018-10-16T15:02:42.441Z"
   },
   "flight": {
@@ -677,17 +797,28 @@ payload = []byte(`{
 	  "country_name": "Espagne",
 	  "timezone": "Europe/Madrid"
      },
-     "departure_date": "2018-11-29T09:00:00.000Z",
-     "arrival_date": "2018-11-29T15:00:00.000Z",
+     "departure_date": "2018-11-29 09:00",
+     "arrival_date": "2018-11-29 15:00",
+     "airline": {
+	  "name": "CitizenPlane",
+          "operated_by": {
+            "name": "Transavia",
+            "iata_code": "HV"
+          }
+     }
      "organization": {
 	  "name": "Orga-1"
      },
      "cabin_class": "economy",
      "booking_class": "Y",
-     "included_airport_tax": 30,
-     "airline": {
-	  "name": "CitizenPlane",
-	  "operated_by": "ASL Airlines France"
+     "luggage_options": [
+        {
+          "weight": 20,
+          "quantity": 1,
+          "price": 0
+        }
+     ],
+     "included_airport_tax": 33.66,
      }
    }
   }
@@ -728,7 +859,8 @@ country_code | *string* | *optional* | The customer's country code.
 postal_code | *string* | *optional* | The customer's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
-passengers | *object* | **required** | An object containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
+passengers | *array* | **required** | An array containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
+luggages | *array* | **required** | An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, the option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.
 card_token | *string* | **required** | A token obtained by sending credit card information to Stripe's <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.
 
 <br/>
@@ -807,6 +939,38 @@ card_token | *string* | **required** | A token obtained by sending credit card i
 </table>
 
 <br/>
+<br/>
+
+#### <table id="booking-luggages-info">
+  <caption><b>luggages child arguments</b></caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">weight</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Lugagge weight chosen by the passenger. Must correspond to the available option on the flight.</td>
+    </tr>
+    <tr>
+      <td align="left">quantity</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Number of luggage chosen by the passenger for this given weight option.</td>
+    </tr>
+    <tr>
+      <td align="left">price</td>
+      <td align="left"><i>integer</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Price of the luggage option chosen by the passenger.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 # Testing
 
