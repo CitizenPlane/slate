@@ -457,7 +457,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">flight_id</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
-        <span class="na">reseller_id</span><span class="p">:</span> <span class="mi">44</span>
+        <span class="na">reseller_id</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
     <span class="na">passengers</span><span class="p">:</span> <span class="p">{</span>
       <span class="na">adults</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
       <span class="na">children</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -477,8 +477,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
   <span class="ss">:flight_id</span> <span class="o">=&gt;</span> <span class="mi">20222</span><span class="p">,</span>
   <span class="ss">:reseller_id</span> <span class="o">=&gt;</span> <span class="mi">44</span><span class="p">,</span>
   <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span>
-    <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span>
+    <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
     <span class="ss">:infants</span> <span class="o">=&gt;</span> <span class="mi">0</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -552,7 +552,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
             </span><span class="s2">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Madrid"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"departure_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-29 10:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"arrival_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-29 16:00"</span><span class="p">,</span><span class="w">
@@ -602,7 +602,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>reseller_id</td>
 <td><em>integer</em></td>
 <td><strong>required</strong></td>
-<td>The id of the reseller (the OTA) in CitizenPlane&#39;s system</td>
+<td>The id of the reseller (the OTA). Reseller ids are unique and given by CitizenPlane.</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -711,6 +711,43 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </span><span class="n">t</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">token</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="x">
 </span></code></pre>
 <blockquote>
+<p>Example Stripe response</p>
+</blockquote>
+
+<p>{
+  &quot;id&quot;: &quot;tok_1DeKRxCLoBt04Rh8rYEA7bJz&quot;,
+  &quot;object&quot;: &quot;token&quot;,
+  &quot;card&quot;:
+   { &quot;id&quot;: &quot;card_1DeKRxCLoBt04Rh8ladNLIQn&quot;,
+     &quot;object&quot;: &quot;card&quot;,
+     &quot;address_city&quot;: null,
+     &quot;address_country&quot;: null,
+     &quot;address_line1&quot;: null,
+     &quot;address_line1_check&quot;: null,
+     &quot;address_line2&quot;: null,
+     &quot;address_state&quot;: null,
+     &quot;address_zip&quot;: null,
+     &quot;address_zip_check&quot;: null,
+     &quot;brand&quot;: &quot;Visa&quot;,
+     &quot;country&quot;: &quot;US&quot;,
+     &quot;cvc_check&quot;: &quot;unchecked&quot;,
+     &quot;dynamic_last4&quot;: null,
+     &quot;exp_month&quot;: 12,
+     &quot;exp_year&quot;: 2019,
+     &quot;fingerprint&quot;: &quot;UQli8ZQEJ3So5j7d&quot;,
+     &quot;funding&quot;: &quot;credit&quot;,
+     &quot;last4&quot;: &quot;4242&quot;,
+     &quot;metadata&quot;: {},
+     &quot;name&quot;: &quot;John Doe&quot;,
+     &quot;tokenization_method&quot;: null },
+  &quot;client_ip&quot;: &quot;00.000.000.000&quot;,
+  &quot;created&quot;: 1544093481,
+  &quot;livemode&quot;: false,
+  &quot;type&quot;: &quot;card&quot;,
+  &quot;used&quot;: false
+}</p>
+
+<blockquote>
 <p>Booking request example</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
@@ -728,13 +765,15 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       "first_name": "John",
       "last_name": "Doe",
       "gender": "male",
-      "is_infant": false
+      "is_infant": false,
+      "date_of_birth": "1987-06-21"
     },
     {
       "first_name": "Jane",
       "last_name": "Doe",
       "gender": "female",
-      "is_infant": false
+      "is_infant": false,
+      "date_of_birth": "1995-11-01"
     }
   ],
   "luggages": [
@@ -777,13 +816,15 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
         <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"male"</span><span class="p">,</span>
-        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">"date_of_birth"</span><span class="p">:</span> <span class="s2">"1987-06-21"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"Jane"</span><span class="p">,</span>
         <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"female"</span><span class="p">,</span>
-        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="s2">"is_infant"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">"date_of_birth"</span><span class="p">:</span> <span class="s2">"1995-11-01"</span>
       <span class="p">}</span>
     <span class="p">],</span>
         <span class="s2">"luggages"</span><span class="p">:</span> <span class="p">[</span>
@@ -824,13 +865,16 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
       <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
       <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"male"</span><span class="p">,</span>
-      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+      <span class="ss">:date_of_birth</span> <span class="o">=&gt;</span> <span class="s2">"1987-06-21"</span>
     <span class="p">},</span>
     <span class="p">{</span>
       <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"Jane"</span><span class="p">,</span>
       <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
       <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"female"</span><span class="p">,</span>
-      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+      <span class="ss">:is_infant</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+      <span class="ss">:date_of_birth</span> <span class="o">=&gt;</span> <span class="s2">"1995-11-01"</span>
+
     <span class="p">}</span>
   <span class="p">],</span>
   <span class="ss">:luggages</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -868,13 +912,15 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
         <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
         <span class="s">"gender"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
-        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+            <span class="s">"date_of_birth"</span><span class="p">:</span> <span class="s">"1987-06-21"</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"Jane"</span><span class="p">,</span>
         <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
         <span class="s">"gender"</span><span class="p">:</span> <span class="s">"female"</span><span class="p">,</span>
-        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span>
+        <span class="s">"is_infant"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+            <span class="s">"date_of_birth"</span><span class="p">:</span> <span class="s">"1995-11-01"</span>
       <span class="p">}</span>
     <span class="p">],</span>
         <span class="s">"luggages"</span><span class="p">:</span> <span class="p">[</span>
@@ -914,13 +960,15 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
                 "first_name": "John",
                 "last_name": "Doe",
                 "gender": "male",
-                "is_infant": false
+                "is_infant": false,
+                "date_of_birth": "1987-06-21"
               },
               {
                 "first_name": "Jane",
                 "last_name": "Doe",
                 "gender": "female",
-                "is_infant": false
+                "is_infant": false,
+                "date_of_birth": "1995-11-01"
               }
             ],
             "luggages": [
@@ -977,13 +1025,15 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date_of_birth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1987-06-21"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
     </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="s2">"is_infant"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date_of_birth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1995-11-01"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"luggages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1004,7 +1054,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
     </span><span class="s2">"totalPriceWithoutLuggages"</span><span class="p">:</span><span class="w"> </span><span class="mf">556.92</span><span class="p">,</span><span class="w">
     </span><span class="s2">"totalPriceWithLuggages"</span><span class="p">:</span><span class="w"> </span><span class="mf">556.92</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16T15:02:42.441Z"</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16 15:02"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
@@ -1030,7 +1080,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
           </span><span class="p">}</span><span class="w">
      </span><span class="p">}</span><span class="w">
      </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orga-1"</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="s2">"cabin_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"economy"</span><span class="p">,</span><span class="w">
      </span><span class="s2">"booking_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
@@ -1160,7 +1210,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>luggages</td>
 <td><em>array</em></td>
 <td><strong>required</strong></td>
-<td>An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, the option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.</td>
+<td>An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.</td>
 </tr>
 <tr>
 <td>card_token</td>
@@ -1206,16 +1256,16 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
       <td align="left">If the passenger is an infant (&lt; 2 yo), set is_infant to true.</td>
     </tr>
     <tr>
-      <td align="left">birth_country</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b><em>optional</em></b></td>
-      <td align="left">Passenger&#39;s birth country.</td>
-    </tr>
-    <tr>
       <td align="left">date_of_birth</td>
       <td align="left"><i>string</i></td>
       <td align="left"><b>required</b></td>
       <td align="left">Passenger&#39;s date of birth.</td>
+    </tr>
+    <tr>
+      <td align="left">birth_country</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Passenger&#39;s birth country.</td>
     </tr>
     <tr>
       <td align="left">passport_number</td>
@@ -1265,7 +1315,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
       <td align="left">quantity</td>
       <td align="left"><i>integer</i></td>
       <td align="left"><b>required</b></td>
-      <td align="left">Number of luggage chosen by the passenger for this given weight option.</td>
+      <td align="left">Number of luggages chosen by the passenger for this given weight option.</td>
     </tr>
     <tr>
       <td align="left">price</td>
