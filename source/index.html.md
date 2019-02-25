@@ -69,7 +69,7 @@ const getFlights = async () => {
       method: "GET",
       uri: "https://booking-api.citizenplane.com/v1/flights",
       headers: {
-	Authorization: "Bearer {your_api_token}"
+        Authorization: "Bearer {your_api_token}"
       }
     })
     return flights
@@ -148,9 +148,9 @@ client := &http.Client{}
     {...},
     {...}
   ],
-  "nbResults": 255,
+  "total": 255,
   "page": 0,
-  "nbPages": 3
+  "total_pages": 3
 }
 ```
 
@@ -183,12 +183,11 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "flight_id": 20222,
-  "reseller_id": 44,
-    "passengers": {
-        "adults": 2,
-        "children": 0,
-        "infants": 0
-    }
+  "passengers": {
+    "adults": 2,
+    "children": 0,
+    "infants": 0
+  }
 }' 'https://booking-api.citizenplane.com/v1/requests'
 ```
 
@@ -201,17 +200,16 @@ const createRequest = async () => {
       method: "POST",
       uri: "https://booking-api.citizenplane.com/v1/requests",
       headers: {
-	Authorization: "Bearer {your_api_token}"
+      Authorization: "Bearer {your_api_token}"
       },
       json: true,
       body: {
-	flight_id: 20222,
-        reseller_id: 44
-	passengers: {
-	  adults: 2,
-	  children: 0,
-	  infants: 0
-	}
+        "flight_id": 20222,
+        "passengers": {
+          "adults": 2,
+          "children": 0,
+          "infants": 0
+        }
       }
     })
     return request
@@ -227,11 +225,10 @@ require 'json'
 
 payload = {
   :flight_id => 20222,
-  :reseller_id => 44,
   :passengers => {
-	:adults => 2
-	:children => 0
-	:infants => 0
+    :adults => 2,
+    :children => 0,
+    :infants => 0
   }
 }
 
@@ -245,7 +242,6 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
         "flight_id": 20222,
-        "reseller_id": 44,
         "passengers": {
             "adults": 2,
             "children": 0,
@@ -263,7 +259,7 @@ import (
         "net/http"
 )
 
-payload := []byte(`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
+payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
         req, _ = http.NewRequest(
                 "POST",
                 "https://booking-api.citizenplane.com/v1/requests",
@@ -285,8 +281,6 @@ payload := []byte(`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adu
 ```json
 {
     "id": 19,
-    "reseller_id": 44,
-    "created_at": "2018-10-16T15:02:28.797Z",
     "passengers": {
         "adults": 2,
         "children": 0,
@@ -294,8 +288,8 @@ payload := []byte(`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adu
     },
     "price": 278.46,
     "infant_price": null,
-    "totalPriceWithoutLuggages": 556.92,
     "cc_fee": 0.02,
+    "created_at": "2018-10-16 15:02",
     "flight": {
         "id": 20222,
         "flight_number": "5O7892"
@@ -312,7 +306,7 @@ payload := []byte(`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adu
             "timezone": "Europe/Madrid"
         },
         "organization": {
-        "name": "Demo"
+          "name": "Demo"
         },
         "departure_date": "2018-10-29 10:00",
         "arrival_date": "2018-10-29 16:00",
@@ -353,7 +347,6 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
-reseller_id | *integer* | **required** | The id of the reseller (the OTA) in CitizenPlane's system
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -473,12 +466,49 @@ Card: &stripe.CardParams{
 t, err := token.New(params)
 ```
 
+> Example Stripe response
+
+```json
+{
+  "id": "tok_1DeKRxCLoBt04Rh8rYEA7bJz",
+  "object": "token",
+  "card":
+   { "id": "card_1DeKRxCLoBt04Rh8ladNLIQn",
+     "object": "card",
+     "address_city": null,
+     "address_country": null,
+     "address_line1": null,
+     "address_line1_check": null,
+     "address_line2": null,
+     "address_state": null,
+     "address_zip": null,
+     "address_zip_check": null,
+     "brand": "Visa",
+     "country": "US",
+     "cvc_check": "unchecked",
+     "dynamic_last4": null,
+     "exp_month": 12,
+     "exp_year": 2019,
+     "fingerprint": "UQli8ZQEJ3So5j7d",
+     "funding": "credit",
+     "last4": "4242",
+     "metadata": {},
+     "name": "John Doe",
+     "tokenization_method": null },
+  "client_ip": "00.000.000.000",
+  "created": 1544093481,
+  "livemode": false,
+  "type": "card",
+  "used": false
+}
+```
+
 > Booking request example
 
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "request_id": 19,
-  "booking_id": "12345",
+  "customer_code": "kiwi",
   "first_name": "John",
   "last_name": "Doe",
   "gender": "male",
@@ -491,13 +521,15 @@ curl POST --header 'Content-Type: application/json' --header 'Accept: applicatio
       "first_name": "John",
       "last_name": "Doe",
       "gender": "male",
-      "is_infant": false
+      "is_infant": false,
+      "date_of_birth": "1987-06-21"
     },
     {
       "first_name": "Jane",
       "last_name": "Doe",
       "gender": "female",
-      "is_infant": false
+      "is_infant": false,
+      "date_of_birth": "1995-11-01"
     }
   ],
   "luggages": [
@@ -525,46 +557,48 @@ const createBooking = async () => {
       method: "POST",
       uri: `https://booking-api.citizenplane.com/v1/bookings`,
       headers: {
-	Authorization: "Bearer {your_api_token}"
+        Authorization: "Bearer {your_api_token}"
       },
       json: true,
       body: {
-	"request_id": 19,
-        "booking_id": "12345",
-	"first_name": "John",
-	"last_name": "Doe",
-	"gender": "male",
-	"email": "john.doe@example.com",
-	"phonenumber": "+33600000000",
-	"passenger_count": 2,
-	"infant_count": 0,
-	"passengers": [
-	  {
-	    "first_name": "John",
-	    "last_name": "Doe",
-	    "gender": "male",
-	    "is_infant": false
-	  },
-	  {
-	    "first_name": "Jane",
-	    "last_name": "Doe",
-	    "gender": "female",
-	    "is_infant": false
-	  }
-	],
+        "request_id": 19,
+        "customer_code": "kiwi",
+        "first_name": "John",
+        "last_name": "Doe",
+        "gender": "male",
+        "email": "john.doe@example.com",
+        "phonenumber": "+33600000000",
+        "passenger_count": 2,
+        "infant_count": 0,
+        "passengers": [
+          {
+            "first_name": "John",
+            "last_name": "Doe",
+            "gender": "male",
+            "is_infant": false,
+            "date_of_birth": "1987-06-21"
+          },
+          {
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "gender": "female",
+            "is_infant": false,
+            "date_of_birth": "1995-11-01"
+          }
+        ],
         "luggages": [
-            {
-              "weight": 20,
-              "quantity": 1,
-              "price": 0
-            },
-            {
-              "weight": 20,
-              "quantity": 1,
-              "price": 0
-            },
-          ],
-	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+          {
+            "weight": 20,
+            "quantity": 1,
+            "price": 0
+          },
+          {
+            "weight": 20,
+            "quantity": 1,
+            "price": 0
+          },
+        ],
+        "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
       }
     })
     return booking
@@ -580,7 +614,7 @@ require 'json'
 
 payload = {
   :request_id => 19,
-  :booking_id => "12345",
+  :customer_code => "kiwi",
   :first_name => "John",
   :last_name => "Doe",
   :gender => "male",
@@ -593,13 +627,15 @@ payload = {
       :first_name => "John",
       :last_name => "Doe",
       :gender => "male",
-      :is_infant => false
+      :is_infant => false,
+      :date_of_birth => "1987-06-21"
     },
     {
       :first_name => "Jane",
       :last_name => "Doe",
       :gender => "female",
-      :is_infant => false
+      :is_infant => false,
+      :date_of_birth => "1995-11-01"
     }
   ],
   :luggages => [
@@ -626,42 +662,44 @@ import requests
 r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
-        "request_id": 19,
-        "booking_id": "12345",
-	"first_name": "John",
-	"last_name": "Doe",
-	"gender": "male",
-	"email": "john.doe@example.com",
-	"phonenumber": "+33600000000",
-	"passenger_count": 2,
-	"infant_count": 0,
-	"passengers": [
-	  {
-	    "first_name": "John",
-	    "last_name": "Doe",
-	    "gender": "male",
-	    "is_infant": False
-	  },
-	  {
-	    "first_name": "Jane",
-	    "last_name": "Doe",
-	    "gender": "female",
-	    "is_infant": False
-	  }
-	],
-        "luggages": [
-          {
-            "weight": 20,
-            "quantity": 1,
-            "price": 0
-          },
-          {
-            "weight": 20,
-            "quantity": 1,
-            "price": 0
-          }
-        ],
-	"card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
+      "request_id": 19,
+      "customer_code": "kiwi",
+      "first_name": "John",
+      "last_name": "Doe",
+      "gender": "male",
+      "email": "john.doe@example.com",
+      "phonenumber": "+33600000000",
+      "passenger_count": 2,
+      "infant_count": 0,
+      "passengers": [
+        {
+          "first_name": "John",
+          "last_name": "Doe",
+          "gender": "male",
+          "is_infant": False,
+          "date_of_birth": "1987-06-21"
+        },
+        {
+          "first_name": "Jane",
+          "last_name": "Doe",
+          "gender": "female",
+          "is_infant": False,
+          "date_of_birth": "1995-11-01"
+        }
+      ],
+      "luggages": [
+        {
+          "weight": 20,
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "weight": 20,
+          "quantity": 1,
+          "price": 0
+        }
+      ],
+      "card_token": "tok_1CXrzBCLoBt04Rh8XWrZH34S"
     }
 )
 ```
@@ -676,7 +714,7 @@ import (
 
 payload = []byte(`{
             "request_id": 19,
-            "booking_id": "12345",
+            "customer_code": "kiwi",
             "first_name": "John",
             "last_name": "Doe",
             "gender": "male",
@@ -689,13 +727,15 @@ payload = []byte(`{
                 "first_name": "John",
                 "last_name": "Doe",
                 "gender": "male",
-                "is_infant": false
+                "is_infant": false,
+                "date_of_birth": "1987-06-21"
               },
               {
                 "first_name": "Jane",
                 "last_name": "Doe",
                 "gender": "female",
-                "is_infant": false
+                "is_infant": false,
+                "date_of_birth": "1995-11-01"
               }
             ],
             "luggages": [
@@ -737,10 +777,6 @@ payload = []byte(`{
     "id": "8765",
     "flight_id": 20222,
     "request_id": 19,
-    "reseller_id": 44,
-    "reseller_fields": {
-      "id": "12345"
-    },
     "pnr_reference": "K9IR6XLGQ",
     "first_name": "John",
     "last_name": "Doe",
@@ -751,16 +787,18 @@ payload = []byte(`{
     "infant_count": 0,
     "passengers": [
       {
-	"first_name": "John",
-	"last_name": "Doe",
-	"gender": "male",
-	"is_infant": false
+        "first_name": "John",
+        "last_name": "Doe",
+        "gender": "male",
+        "is_infant": false,
+        "date_of_birth": "1987-06-21"
       },
       {
-	"first_name": "Jane",
-	"last_name": "Doe",
-	"gender": "female",
-	"is_infant": false
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "gender": "female",
+        "is_infant": false,
+        "date_of_birth": "1995-11-01"
       }
     ],
     "luggages": [
@@ -775,52 +813,49 @@ payload = []byte(`{
         "price": 0
       },
     ],
-    "distribution_channel": null,
     "price": 278.46,
     "infant_price": null,
     "cc_fee": 0.02,
-    "totalPriceWithoutLuggages": 556.92,
-    "totalPriceWithLuggages": 556.92
-    "created_at": "2018-10-16T15:02:42.441Z"
+    "luggages_fee": 0,
+    "total_price": 556.92
+    "created_at": "2018-10-16 15:02"
   },
   "flight": {
-     "id": 20222,
-     "origin": {
-	  "iata_code": "CDG",
-	  "city_name": "Paris",
-	  "country_name": "France",
-	  "timezone": "Europe/Paris"
-     },
-     "destination": {
-	  "iata_code": "PMI",
-	  "city_name": "Palma de Majorque",
-	  "country_name": "Espagne",
-	  "timezone": "Europe/Madrid"
-     },
-     "departure_date": "2018-11-29 09:00",
-     "arrival_date": "2018-11-29 15:00",
-     "airline": {
-	  "name": "CitizenPlane",
-          "operated_by": {
-            "name": "Transavia",
-            "iata_code": "HV"
-          }
-     }
-     "organization": {
-	  "name": "Orga-1"
-     },
-     "cabin_class": "economy",
-     "booking_class": "Y",
-     "luggage_options": [
-        {
-          "weight": 20,
-          "quantity": 1,
-          "price": 0
-        }
-     ],
-     "included_airport_tax": 33.66,
-     }
-   }
+    "id": 20222,
+    "origin": {
+      "iata_code": "CDG",
+      "city_name": "Paris",
+      "country_name": "France",
+      "timezone": "Europe/Paris"
+    },
+    "destination": {
+      "iata_code": "PMI",
+      "city_name": "Palma de Majorque",
+      "country_name": "Espagne",
+      "timezone": "Europe/Madrid"
+    },
+    "departure_date": "2018-11-29 09:00",
+    "arrival_date": "2018-11-29 15:00",
+    "airline": {
+      "name": "CitizenPlane",
+      "operated_by": {
+        "name": "Transavia",
+        "iata_code": "HV"
+      }
+    }
+    "organization": {
+      "name": "Demo"
+    },
+    "cabin_class": "economy",
+    "booking_class": "Y",
+    "luggage_options": [
+      {
+        "weight": 20,
+        "quantity": 1,
+        "price": 0
+      }
+    ],
+    "included_airport_tax": 33.66,
   }
 }
 ```
@@ -846,8 +881,8 @@ To generate a token, you'll need to install Stripe's package and uses an api_key
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 request_id | *integer* | **required** | The request id (see `/requests`).
-booking_id | *string* | **required** | An id generated by the caller to identify the booking.
-distribution_channel | *string* | *optional* | Name of the ETA through which the reservation has been made.
+customer_code | *string* | **required** | An identification code for the OTA through which the reservation has been made.
+customer_data | *object* | *optional* | Additional data used to identify the booking (internal id, customer email).
 first_name | *string* | **required** | The customer's first name.
 last_name | *string* | **required** | The customer's last name.
 gender | *string* | **required** | The customer's gender.
@@ -860,7 +895,7 @@ postal_code | *string* | *optional* | The customer's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
 passengers | *array* | **required** | An array containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
-luggages | *array* | **required** | An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, the option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.
+luggages | *array* | **required** | An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.
 card_token | *string* | **required** | A token obtained by sending credit card information to Stripe's <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.
 
 <br/>
@@ -900,16 +935,16 @@ card_token | *string* | **required** | A token obtained by sending credit card i
       <td align="left">If the passenger is an infant (< 2 yo), set is_infant to true.</td>
     </tr>
     <tr>
-      <td align="left">birth_country</td>
-      <td align="left"><i>string</i></td>
-      <td align="left"><b>*optional*</b></td>
-      <td align="left">Passenger's birth country.</td>
-    </tr>
-    <tr>
       <td align="left">date_of_birth</td>
       <td align="left"><i>string</i></td>
       <td align="left"><b>required</b></td>
       <td align="left">Passenger's date of birth.</td>
+    </tr>
+    <tr>
+      <td align="left">birth_country</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Passenger's birth country.</td>
     </tr>
     <tr>
       <td align="left">passport_number</td>
@@ -960,7 +995,7 @@ card_token | *string* | **required** | A token obtained by sending credit card i
       <td align="left">quantity</td>
       <td align="left"><i>integer</i></td>
       <td align="left"><b>required</b></td>
-      <td align="left">Number of luggage chosen by the passenger for this given weight option.</td>
+      <td align="left">Number of luggages chosen by the passenger for this given weight option.</td>
     </tr>
     <tr>
       <td align="left">price</td>
