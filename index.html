@@ -437,7 +437,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "flight_id": 20222,
-  "reseller_id": 44,
   "passengers": {
     "adults": 2,
     "children": 0,
@@ -457,7 +456,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
-        <span class="s2">"reseller_id"</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
         <span class="s2">"passengers"</span><span class="p">:</span> <span class="p">{</span>
           <span class="s2">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
           <span class="s2">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -475,7 +473,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:flight_id</span> <span class="o">=&gt;</span> <span class="mi">20222</span><span class="p">,</span>
-  <span class="ss">:reseller_id</span> <span class="o">=&gt;</span> <span class="mi">44</span><span class="p">,</span>
   <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
     <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
@@ -490,7 +487,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
         <span class="s">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
-        <span class="s">"reseller_id"</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
         <span class="s">"passengers"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
             <span class="s">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -505,7 +501,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="s">"net/http"</span><span class="x">
 </span><span class="p">)</span><span class="x">
 
-</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "reseller_id": 44, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
+</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
         </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="x">
                 </span><span class="s">"POST"</span><span class="p">,</span><span class="x">
                 </span><span class="s">"https://booking-api.citizenplane.com/v1/requests"</span><span class="p">,</span><span class="x">
@@ -525,7 +521,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"reseller_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">,</span><span class="w">
     </span><span class="s2">"passengers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"adults"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
         </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -596,12 +591,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td><em>integer</em></td>
 <td><strong>required</strong></td>
 <td>The flight id (see <code>/flights</code>).</td>
-</tr>
-<tr>
-<td>reseller_id</td>
-<td><em>integer</em></td>
-<td><strong>required</strong></td>
-<td>The id of the reseller (the OTA). Reseller ids are unique and given by CitizenPlane.</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -750,7 +739,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "request_id": 19,
-  "booking_id": "12345",
+  "customer_code": "kiwi",
   "first_name": "John",
   "last_name": "Doe",
   "gender": "male",
@@ -801,7 +790,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-        <span class="s2">"booking_id"</span><span class="p">:</span> <span class="s2">"12345"</span><span class="p">,</span>
+        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"kiwi"</span><span class="p">,</span>
         <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
         <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"male"</span><span class="p">,</span>
@@ -850,7 +839,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:request_id</span> <span class="o">=&gt;</span> <span class="mi">19</span><span class="p">,</span>
-  <span class="ss">:booking_id</span> <span class="o">=&gt;</span> <span class="s2">"12345"</span><span class="p">,</span>
+  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s2">"kiwi"</span><span class="p">,</span>
   <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
   <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"male"</span><span class="p">,</span>
@@ -896,7 +885,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
       <span class="s">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-      <span class="s">"booking_id"</span><span class="p">:</span> <span class="s">"12345"</span><span class="p">,</span>
+      <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"kiwi"</span><span class="p">,</span>
       <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
       <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
       <span class="s">"gender"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
@@ -944,7 +933,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 </span><span class="n">payload</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{
             "request_id": 19,
-            "booking_id": "12345",
+            "customer_code": "kiwi",
             "first_name": "John",
             "last_name": "Doe",
             "gender": "male",
@@ -1005,10 +994,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8765"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"flight_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
     </span><span class="s2">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"reseller_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"reseller_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
     </span><span class="s2">"pnr_reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"K9IR6XLGQ"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
@@ -1045,7 +1030,6 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
       </span><span class="p">},</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"distribution_channel"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">278.46</span><span class="p">,</span><span class="w">
     </span><span class="s2">"infant_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
@@ -1118,16 +1102,16 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>The request id (see <code>/requests</code>).</td>
 </tr>
 <tr>
-<td>booking_id</td>
+<td>customer_code</td>
 <td><em>string</em></td>
 <td><strong>required</strong></td>
-<td>An id generated by the caller to identify the booking.</td>
+<td>An identification code for the OTA through which the reservation has been made.</td>
 </tr>
 <tr>
-<td>distribution_channel</td>
-<td><em>string</em></td>
+<td>customer_data</td>
+<td><em>object</em></td>
 <td><em>optional</em></td>
-<td>Name of the ETA through which the reservation has been made.</td>
+<td>Additional data used to identify the booking (internal id, customer email).</td>
 </tr>
 <tr>
 <td>first_name</td>
