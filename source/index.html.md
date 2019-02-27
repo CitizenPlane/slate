@@ -122,8 +122,8 @@ client := &http.Client{}
       "destination": "PMI",
       "available_seats": 20,
       "organization_name": "Demo",
-      "departure_date": "2018-11-29 10:00",
-      "arrival_date": "2018-11-29 16:00",
+      "departure_date": "2018-11-29T10:00:00.000Z",
+      "arrival_date": "2018-11-29T16:00:00.000Z",
       "airline": {
           "name": "CitizenPlane",
           "operated_by": {
@@ -313,8 +313,8 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers":
         "organization": {
           "name": "Demo"
         },
-        "departure_date": "2018-10-29 10:00",
-        "arrival_date": "2018-10-29 16:00",
+        "departure_date": "2018-10-29T10:00:00.000Z",
+        "arrival_date": "2018-10-29T16:00:00.000Z",
         "airline": {
             "name": "CitizenPlane",
             "operated_by": {
@@ -866,8 +866,8 @@ payload = []byte(`{
       "country_name": "Espagne",
       "timezone": "Europe/Madrid"
     },
-    "departure_date": "2018-11-29 09:00",
-    "arrival_date": "2018-11-29 15:00",
+    "departure_date": "2018-11-29T09:00:00.000Z",
+    "arrival_date": "2018-11-29T15:00:00.000Z",
     "airline": {
       "name": "CitizenPlane",
       "operated_by": {
