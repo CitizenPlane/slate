@@ -294,7 +294,7 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers":
     "infant_price": null,
     "cc_fee": 0.02,
     "customer_code": "opodo",
-    "created_at": "2018-10-16 15:02",
+    "created_at": "2018-10-16T15:02:00.000Z",
     "flight": {
         "id": 20222,
         "flight_number": "5O7892"
@@ -850,7 +850,7 @@ payload = []byte(`{
     "luggage_fee": 0,
     "total_price": 556.92,
     "external_id": "ABC123",
-    "created_at": "2018-10-16 15:02"
+    "created_at": "2018-10-16T15:02:00.000Z"
   },
   "flight": {
     "id": 20222,
