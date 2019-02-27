@@ -590,7 +590,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"registration_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-01T14:52:45.974Z"</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-01T:52:45.974Z"</span><span class="w">
       </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-15T:52:45.974Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -621,7 +621,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>customer_code</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>An string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you&#39;re making a request with a customer that does not have an identification code, do not add this field.</td>
+<td>A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you&#39;re making a request with a customer that does not have an identification code, do not add this field.</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -1174,7 +1174,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>customer_data</td>
 <td><em>object</em></td>
 <td><em>optional</em></td>
-<td>If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if <em>customer_code</em> is left empty.</td>
+<td>If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if <em>customer_code</em> is left empty. <a href="#booking-customer-data">See child arguments</a>.</td>
 </tr>
 <tr>
 <td>first_name</td>
@@ -1261,6 +1261,92 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>A token obtained by sending credit card information to Stripe&#39;s <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.</td>
 </tr>
 </tbody></table>
+
+<p><br/>
+<br/></p>
+<h4 id='5585de3764'><table id="booking-customer-data"></h4>
+<p><caption><b>customer_data child arguments</b></caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">first_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer&#39;s first name.</td>
+    </tr>
+    <tr>
+      <td align="left">last_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer&#39;s last name.</td>
+    </tr>
+    <tr>
+      <td align="left">gender</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer&#39;s gender.</td>
+    </tr>
+    <tr>
+      <td align="left">email</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer&#39;s email.</td>
+    </tr>
+    <tr>
+      <td align="left">phonenumber</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer&#39;s phonenumber.</td>
+    </tr>
+    <tr>
+      <td align="left">address</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s address.</td>
+    </tr>
+    <tr>
+      <td align="left">city_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s city name.</td>
+    </tr>
+    <tr>
+      <td align="left">country_code</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s country code.</td>
+    </tr>
+    <tr>
+      <td align="left">postal_code</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s postal code.</td>
+    </tr>
+    <tr>
+      <td align="left">is_company</td>
+      <td align="left"><i>boolean</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Defaults to false. If the customer is a company, set this field to true.</td>
+    </tr>
+    <tr>
+      <td align="left">registration_number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s registration_number.Leave empty if doesn&#39;t apply.</td>
+    </tr>
+    <tr>
+      <td align="left">vat_number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b><em>optional</em></b></td>
+      <td align="left">Customer&#39;s vat_number.Leave empty if doesn&#39;t apply.</td>
+    </tr>
+  </tbody>
+</table></p>
 
 <p><br/>
 <br/></p>
