@@ -437,6 +437,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "flight_id": 20222,
+  "customer_code": "opodo",
   "passengers": {
     "adults": 2,
     "children": 0,
@@ -456,6 +457,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
+        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opodo"</span><span class="p">,</span>
         <span class="s2">"passengers"</span><span class="p">:</span> <span class="p">{</span>
           <span class="s2">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
           <span class="s2">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -473,6 +475,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:flight_id</span> <span class="o">=&gt;</span> <span class="mi">20222</span><span class="p">,</span>
+  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s1">'opodo'</span><span class="p">,</span>
   <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
     <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
@@ -487,6 +490,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
         <span class="s">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
+        <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opodo"</span><span class="p">,</span>
         <span class="s">"passengers"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
             <span class="s">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -501,7 +505,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="s">"net/http"</span><span class="x">
 </span><span class="p">)</span><span class="x">
 
-</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
+</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "customer_code": "opodo", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
         </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="x">
                 </span><span class="s">"POST"</span><span class="p">,</span><span class="x">
                 </span><span class="s">"https://booking-api.citizenplane.com/v1/requests"</span><span class="p">,</span><span class="x">
@@ -529,6 +533,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">278.46</span><span class="p">,</span><span class="w">
     </span><span class="s2">"infant_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customer_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opodo"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16 15:02"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
@@ -567,6 +572,26 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
           </span><span class="p">}</span><span class="w">
         </span><span class="p">],</span><span class="w">
         </span><span class="s2">"included_airport_tax"</span><span class="p">:</span><span class="w"> </span><span class="mf">33.66</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Opodo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"support@odopo.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"is_company"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"company_codes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"opodo"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33170917575"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Waterfront, Hammersmith Embankment, Chancellor's Road"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"W69RU"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coutry_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registration_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-01T14:52:45.974Z"</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-15T:52:45.974Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -591,6 +616,12 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td><em>integer</em></td>
 <td><strong>required</strong></td>
 <td>The flight id (see <code>/flights</code>).</td>
+</tr>
+<tr>
+<td>customer_code</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>An string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you&#39;re making a request with a customer that does not have an identification code, do not add this field.</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -739,7 +770,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "request_id": 19,
-  "customer_code": "kiwi",
+  "customer_code": "opodo",
+  "external_id": "ABC123",
   "first_name": "John",
   "last_name": "Doe",
   "gender": "male",
@@ -763,7 +795,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       "date_of_birth": "1995-11-01"
     }
   ],
-  "luggages": [
+  "luggage": [
     {
       "weight": 20,
       "quantity": 1,
@@ -790,7 +822,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"kiwi"</span><span class="p">,</span>
+        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opodo"</span><span class="p">,</span>
+        <span class="s2">"external_id"</span><span class="p">:</span> <span class="s2">"ABC123"</span><span class="p">,</span>
         <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
         <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
         <span class="s2">"gender"</span><span class="p">:</span> <span class="s2">"male"</span><span class="p">,</span>
@@ -814,7 +847,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
             <span class="s2">"date_of_birth"</span><span class="p">:</span> <span class="s2">"1995-11-01"</span>
           <span class="p">}</span>
         <span class="p">],</span>
-        <span class="s2">"luggages"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"luggage"</span><span class="p">:</span> <span class="p">[</span>
           <span class="p">{</span>
             <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
             <span class="s2">"quantity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -839,7 +872,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:request_id</span> <span class="o">=&gt;</span> <span class="mi">19</span><span class="p">,</span>
-  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s2">"kiwi"</span><span class="p">,</span>
+  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s2">"opodo"</span><span class="p">,</span>
+  <span class="ss">:external_id</span> <span class="o">=&gt;</span> <span class="s2">"ABC123"</span><span class="p">,</span>
   <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
   <span class="ss">:gender</span> <span class="o">=&gt;</span> <span class="s2">"male"</span><span class="p">,</span>
@@ -863,7 +897,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="ss">:date_of_birth</span> <span class="o">=&gt;</span> <span class="s2">"1995-11-01"</span>
     <span class="p">}</span>
   <span class="p">],</span>
-  <span class="ss">:luggages</span> <span class="o">=&gt;</span> <span class="p">[</span>
+  <span class="ss">:luggage</span> <span class="o">=&gt;</span> <span class="p">[</span>
     <span class="p">{</span>
       <span class="ss">:weight</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span>
       <span class="ss">:quantity</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
@@ -885,7 +919,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
       <span class="s">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-      <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"kiwi"</span><span class="p">,</span>
+      <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opodo"</span><span class="p">,</span>
+      <span class="s">"external_id"</span><span class="p">:</span> <span class="s">"ABC123"</span><span class="p">,</span>
       <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
       <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
       <span class="s">"gender"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
@@ -909,7 +944,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
           <span class="s">"date_of_birth"</span><span class="p">:</span> <span class="s">"1995-11-01"</span>
         <span class="p">}</span>
       <span class="p">],</span>
-      <span class="s">"luggages"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s">"luggage"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
           <span class="s">"weight"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
           <span class="s">"quantity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -933,7 +968,8 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 </span><span class="n">payload</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{
             "request_id": 19,
-            "customer_code": "kiwi",
+            "customer_code": "opodo",
+            "external_id": "123ABC",
             "first_name": "John",
             "last_name": "Doe",
             "gender": "male",
@@ -957,7 +993,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
                 "date_of_birth": "1995-11-01"
               }
             ],
-            "luggages": [
+            "luggage": [
               {
                 "weight": 20,
                 "quantity": 1,
@@ -1018,7 +1054,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="s2">"date_of_birth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1995-11-01"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"luggages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"luggage"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
         </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -1033,8 +1069,9 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">278.46</span><span class="p">,</span><span class="w">
     </span><span class="s2">"infant_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"luggages_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"total_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">556.92</span><span class="w">
+    </span><span class="s2">"luggage_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">556.92</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16 15:02"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1073,7 +1110,27 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"included_airport_tax"</span><span class="p">:</span><span class="w"> </span><span class="mf">33.66</span><span class="p">,</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Opodo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"support@odopo.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"is_company"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"company_codes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"opodo"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33170917575"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Waterfront, Hammersmith Embankment, Chancellor's Road"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"W69RU"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coutry_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"registration_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-01T14:52:45.974Z"</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-15T:52:45.974Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint confirms the previously created booking request and processes the booking as well as the associated payment. Once the booking is created, the customer will receive a confirmation by email along with the ticket(s).</p>
@@ -1102,16 +1159,22 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>The request id (see <code>/requests</code>).</td>
 </tr>
 <tr>
+<td>external_id</td>
+<td><em>string</em></td>
+<td><em>optional</em></td>
+<td>The id used on your side to identify the booking. This field is optional, though highly recommended in case we need to retrieve a booking in your system.</td>
+</tr>
+<tr>
 <td>customer_code</td>
 <td><em>string</em></td>
-<td><strong>required</strong></td>
-<td>An identification code for the OTA through which the reservation has been made.</td>
+<td><em>optional</em></td>
+<td>A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you&#39;re making a request with a customer that does not have an identification code, do not add this field but refer to <em>customer_data</em>.</td>
 </tr>
 <tr>
 <td>customer_data</td>
 <td><em>object</em></td>
 <td><em>optional</em></td>
-<td>Additional data used to identify the booking (internal id, customer email).</td>
+<td>If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if <em>customer_code</em> is left empty.</td>
 </tr>
 <tr>
 <td>first_name</td>
@@ -1186,10 +1249,10 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>An array containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.</td>
 </tr>
 <tr>
-<td>luggages</td>
+<td>luggage</td>
 <td><em>array</em></td>
 <td><strong>required</strong></td>
-<td>An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.</td>
+<td>An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggage-info">See child arguments</a>.</td>
 </tr>
 <tr>
 <td>card_token</td>
@@ -1275,8 +1338,8 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 
 <p><br/>
 <br/></p>
-<h4 id='06f7f9f360'><table id="booking-luggages-info"></h4>
-<p><caption><b>luggages child arguments</b></caption>
+<h4 id='085f00032e'><table id="booking-luggage-info"></h4>
+<p><caption><b>luggage child arguments</b></caption>
   <tbody>
     <tr>
       <th align="left">Parameter</th>
@@ -1294,7 +1357,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
       <td align="left">quantity</td>
       <td align="left"><i>integer</i></td>
       <td align="left"><b>required</b></td>
-      <td align="left">Number of luggages chosen by the passenger for this given weight option.</td>
+      <td align="left">Number of luggage chosen by the passenger for this given weight option.</td>
     </tr>
     <tr>
       <td align="left">price</td>
