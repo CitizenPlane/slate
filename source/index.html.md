@@ -372,7 +372,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
-customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
+customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Only used with companies making requests through an aggregator (can be "govoyages" or "kiwi", for example). Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
