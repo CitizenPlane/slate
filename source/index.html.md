@@ -936,15 +936,15 @@ request_id | *integer* | **required** | The request id (see `/requests`).
 external_id | *string* | *optional* | The id used on your side to identify the booking. This field is optional, though highly recommended in case we need to retrieve a booking in your system.
 customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you're making a request with a customer that does not have an identification code, do not add this field but refer to *customer_data*.
 customer_data | *object* | *optional* | If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if *customer_code* is left empty. <a href="#booking-customer-data">See child arguments</a>.
-first_name | *string* | **required** | The customer's first name.
-last_name | *string* | **required** | The customer's last name.
-gender | *string* | **required** | The customer's gender.
-email | *string* | **required** | The customer's email.
-phonenumber | *string* | **required** | The customer's phone number.
-address | *string* | *optional* | The customer's address.
-city_name | *string* | *optional* | The customer's city name.
-country_code | *string* | *optional* | The customer's country code.
-postal_code | *string* | *optional* | The customer's postal code.
+first_name | *string* | **required** | The booker's first name.
+last_name | *string* | **required** | The booker's last name.
+gender | *string* | **required** | The booker's gender.
+email | *string* | **required** | The booker's email.
+phonenumber | *string* | **required** | The booker's phone number.
+address | *string* | *optional* | The booker's address.
+city_name | *string* | *optional* | The booker's city name.
+country_code | *string* | *optional* | The booker's country code.
+postal_code | *string* | *optional* | The booker's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
 passengers | *array* | **required** | An array containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
