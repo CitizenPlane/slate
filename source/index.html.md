@@ -183,6 +183,7 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "flight_id": 20222,
+  "customer_code": "opodo",
   "passengers": {
     "adults": 2,
     "children": 0,
@@ -205,6 +206,7 @@ const createRequest = async () => {
       json: true,
       body: {
         "flight_id": 20222,
+        "customer_code": "opodo",
         "passengers": {
           "adults": 2,
           "children": 0,
@@ -225,6 +227,7 @@ require 'json'
 
 payload = {
   :flight_id => 20222,
+  :customer_code => 'opodo',
   :passengers => {
     :adults => 2,
     :children => 0,
@@ -242,6 +245,7 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
         "flight_id": 20222,
+        "customer_code": "opodo",
         "passengers": {
             "adults": 2,
             "children": 0,
@@ -259,7 +263,7 @@ import (
         "net/http"
 )
 
-payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
+payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
         req, _ = http.NewRequest(
                 "POST",
                 "https://booking-api.citizenplane.com/v1/requests",
@@ -289,6 +293,7 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
     "price": 278.46,
     "infant_price": null,
     "cc_fee": 0.02,
+    "customer_code": "opodo",
     "created_at": "2018-10-16 15:02",
     "flight": {
         "id": 20222,
@@ -327,6 +332,26 @@ payload := []byte(`{ "flight_id": 20222, "passengers": { "adults": 2, "children"
           }
         ],
         "included_airport_tax": 33.66
+    },
+    "customer": {
+      "name": "Opodo",
+      "email": "support@odopo.com",
+      "is_company": true,
+      "company_codes": [
+        "opodo"
+      ],
+      "verified": true,
+      "phonenumber": "+33170917575",
+      "gender": null,
+      "address": "Waterfront, Hammersmith Embankment, Chancellor's Road",
+      "city_name": "London",
+      "postal_code": "W69RU",
+      "coutry_code": "UK",
+      "country_name": "United Kingdom",
+      "vat_number": null,
+      "registration_number": null,
+      "created_at": "2019-02-01T14:52:45.974Z"
+      "updated_at": "2019-02-15T:52:45.974Z"
     }
 }
 ```
@@ -347,6 +372,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
+customer_code | *string* | *optional* | An string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -508,7 +534,8 @@ t, err := token.New(params)
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "request_id": 19,
-  "customer_code": "kiwi",
+  "customer_code": "opodo",
+  "external_id": "ABC123",
   "first_name": "John",
   "last_name": "Doe",
   "gender": "male",
@@ -532,7 +559,7 @@ curl POST --header 'Content-Type: application/json' --header 'Accept: applicatio
       "date_of_birth": "1995-11-01"
     }
   ],
-  "luggages": [
+  "luggage": [
     {
       "weight": 20,
       "quantity": 1,
@@ -562,7 +589,8 @@ const createBooking = async () => {
       json: true,
       body: {
         "request_id": 19,
-        "customer_code": "kiwi",
+        "customer_code": "opodo",
+        "external_id": "ABC123",
         "first_name": "John",
         "last_name": "Doe",
         "gender": "male",
@@ -586,7 +614,7 @@ const createBooking = async () => {
             "date_of_birth": "1995-11-01"
           }
         ],
-        "luggages": [
+        "luggage": [
           {
             "weight": 20,
             "quantity": 1,
@@ -614,7 +642,8 @@ require 'json'
 
 payload = {
   :request_id => 19,
-  :customer_code => "kiwi",
+  :customer_code => "opodo",
+  :external_id => "ABC123",
   :first_name => "John",
   :last_name => "Doe",
   :gender => "male",
@@ -638,7 +667,7 @@ payload = {
       :date_of_birth => "1995-11-01"
     }
   ],
-  :luggages => [
+  :luggage => [
     {
       :weight => 20,
       :quantity => 1,
@@ -663,7 +692,8 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
       "request_id": 19,
-      "customer_code": "kiwi",
+      "customer_code": "opodo",
+      "external_id": "ABC123",
       "first_name": "John",
       "last_name": "Doe",
       "gender": "male",
@@ -687,7 +717,7 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
           "date_of_birth": "1995-11-01"
         }
       ],
-      "luggages": [
+      "luggage": [
         {
           "weight": 20,
           "quantity": 1,
@@ -714,7 +744,8 @@ import (
 
 payload = []byte(`{
             "request_id": 19,
-            "customer_code": "kiwi",
+            "customer_code": "opodo",
+            "external_id": "123ABC",
             "first_name": "John",
             "last_name": "Doe",
             "gender": "male",
@@ -738,7 +769,7 @@ payload = []byte(`{
                 "date_of_birth": "1995-11-01"
               }
             ],
-            "luggages": [
+            "luggage": [
               {
                 "weight": 20,
                 "quantity": 1,
@@ -801,7 +832,7 @@ payload = []byte(`{
         "date_of_birth": "1995-11-01"
       }
     ],
-    "luggages": [
+    "luggage": [
       {
         "weight": 20,
         "quantity": 1,
@@ -816,8 +847,9 @@ payload = []byte(`{
     "price": 278.46,
     "infant_price": null,
     "cc_fee": 0.02,
-    "luggages_fee": 0,
-    "total_price": 556.92
+    "luggage_fee": 0,
+    "total_price": 556.92,
+    "external_id": "ABC123",
     "created_at": "2018-10-16 15:02"
   },
   "flight": {
@@ -856,7 +888,27 @@ payload = []byte(`{
       }
     ],
     "included_airport_tax": 33.66,
-  }
+  },
+    "customer": {
+      "name": "Opodo",
+      "email": "support@odopo.com",
+      "is_company": true,
+      "company_codes": [
+        "opodo"
+      ],
+      "verified": true,
+      "phonenumber": "+33170917575",
+      "gender": null,
+      "address": "Waterfront, Hammersmith Embankment, Chancellor's Road",
+      "city_name": "London",
+      "postal_code": "W69RU",
+      "coutry_code": "UK",
+      "country_name": "United Kingdom",
+      "vat_number": null,
+      "registration_number": null,
+      "created_at": "2019-02-01T14:52:45.974Z"
+      "updated_at": "2019-02-15T:52:45.974Z"
+    }
 }
 ```
 
@@ -881,8 +933,9 @@ To generate a token, you'll need to install Stripe's package and uses an api_key
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 request_id | *integer* | **required** | The request id (see `/requests`).
-customer_code | *string* | **required** | An identification code for the OTA through which the reservation has been made.
-customer_data | *object* | *optional* | Additional data used to identify the booking (internal id, customer email).
+external_id | *string* | *optional* | The id used on your side to identify the booking. This field is optional, though highly recommended in case we need to retrieve a booking in your system.
+customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you're making a request with a customer that does not have an identification code, do not add this field but refer to *customer_data*.
+customer_data | *object* | *optional* | If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if *customer_code* is left empty.
 first_name | *string* | **required** | The customer's first name.
 last_name | *string* | **required** | The customer's last name.
 gender | *string* | **required** | The customer's gender.
@@ -895,7 +948,7 @@ postal_code | *string* | *optional* | The customer's postal code.
 passenger_count | *string* | **required** | Total passengers on this booking (infants excluded).
 infant_count | *string* | **required** | Total infants on this booking (< 2yo).
 passengers | *array* | **required** | An array containing personal information for each passenger on this booking. <a href="#booking-passengers-info">See child arguments</a>.
-luggages | *array* | **required** | An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggages-info">See child arguments</a>.
+luggage | *array* | **required** | An array containing the luggage option chosen by each passenger. Each passenger is allowed to choose one option. Therefore, the array must not contain more options than passengers. If two passengers choose the same luggage weight option, this option must appear twice in the luggage array (though the luggage quantity may vary).<a href="#booking-luggage-info">See child arguments</a>.
 card_token | *string* | **required** | A token obtained by sending credit card information to Stripe's <a href="https://stripe.com/docs/api/tokens/create_card?lang=curl">API</a>.
 
 <br/>
@@ -976,8 +1029,8 @@ card_token | *string* | **required** | A token obtained by sending credit card i
 <br/>
 <br/>
 
-#### <table id="booking-luggages-info">
-  <caption><b>luggages child arguments</b></caption>
+#### <table id="booking-luggage-info">
+  <caption><b>luggage child arguments</b></caption>
   <tbody>
     <tr>
       <th align="left">Parameter</th>
@@ -995,7 +1048,7 @@ card_token | *string* | **required** | A token obtained by sending credit card i
       <td align="left">quantity</td>
       <td align="left"><i>integer</i></td>
       <td align="left"><b>required</b></td>
-      <td align="left">Number of luggages chosen by the passenger for this given weight option.</td>
+      <td align="left">Number of luggage chosen by the passenger for this given weight option.</td>
     </tr>
     <tr>
       <td align="left">price</td>
