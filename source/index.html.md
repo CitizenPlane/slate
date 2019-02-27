@@ -350,7 +350,7 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers":
       "country_name": "United Kingdom",
       "vat_number": null,
       "registration_number": null,
-      "created_at": "2019-02-01T14:52:45.974Z"
+      "created_at": "2019-02-01T:52:45.974Z"
       "updated_at": "2019-02-15T:52:45.974Z"
     }
 }
@@ -372,7 +372,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
-customer_code | *string* | *optional* | An string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
+customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -935,7 +935,7 @@ Parameter | Type | Status | Description
 request_id | *integer* | **required** | The request id (see `/requests`).
 external_id | *string* | *optional* | The id used on your side to identify the booking. This field is optional, though highly recommended in case we need to retrieve a booking in your system.
 customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you're making a request with a customer that does not have an identification code, do not add this field but refer to *customer_data*.
-customer_data | *object* | *optional* | If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if *customer_code* is left empty.
+customer_data | *object* | *optional* | If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if *customer_code* is left empty. <a href="#booking-customer-data">See child arguments</a>.
 first_name | *string* | **required** | The customer's first name.
 last_name | *string* | **required** | The customer's last name.
 gender | *string* | **required** | The customer's gender.
@@ -953,6 +953,94 @@ card_token | *string* | **required** | A token obtained by sending credit card i
 
 <br/>
 <br/>
+
+#### <table id="booking-customer-data">
+  <caption><b>customer_data child arguments</b></caption>
+  <tbody>
+    <tr>
+      <th align="left">Parameter</th>
+      <th align="left">Type</th>
+      <th align="left">Status</th>
+      <th align="left">Description</th>
+    </tr>
+    <tr>
+      <td align="left">first_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer's first name.</td>
+    </tr>
+    <tr>
+      <td align="left">last_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer's last name.</td>
+    </tr>
+    <tr>
+      <td align="left">gender</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer's gender.</td>
+    </tr>
+    <tr>
+      <td align="left">email</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer's email.</td>
+    </tr>
+    <tr>
+      <td align="left">phonenumber</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>required</b></td>
+      <td align="left">Customer's phonenumber.</td>
+    </tr>
+    <tr>
+      <td align="left">address</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's address.</td>
+    </tr>
+    <tr>
+      <td align="left">city_name</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's city name.</td>
+    </tr>
+    <tr>
+      <td align="left">country_code</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's country code.</td>
+    </tr>
+    <tr>
+      <td align="left">postal_code</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's postal code.</td>
+    </tr>
+    <tr>
+      <td align="left">is_company</td>
+      <td align="left"><i>boolean</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Defaults to false. If the customer is a company, set this field to true.</td>
+    </tr>
+    <tr>
+      <td align="left">registration_number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's registration_number.Leave empty if doesn't apply.</td>
+    </tr>
+    <tr>
+      <td align="left">vat_number</td>
+      <td align="left"><i>string</i></td>
+      <td align="left"><b>*optional*</b></td>
+      <td align="left">Customer's vat_number.Leave empty if doesn't apply.</td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<br/>
+
 
 #### <table id="booking-passengers-info">
   <caption><b>passengers child arguments</b></caption>
