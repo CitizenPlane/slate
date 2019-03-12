@@ -183,7 +183,7 @@ page | *integer* | *optional* | Specify the page to retrieve. Each page displays
 ```shell
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "flight_id": 20222,
-  "customer_code": "opodo",
+  "customer_code": "opocom",
   "passengers": {
     "adults": 2,
     "children": 0,
@@ -206,7 +206,7 @@ const createRequest = async () => {
       json: true,
       body: {
         "flight_id": 20222,
-        "customer_code": "opodo",
+        "customer_code": "opocom",
         "passengers": {
           "adults": 2,
           "children": 0,
@@ -227,7 +227,7 @@ require 'json'
 
 payload = {
   :flight_id => 20222,
-  :customer_code => 'opodo',
+  :customer_code => 'opocom',
   :passengers => {
     :adults => 2,
     :children => 0,
@@ -245,7 +245,7 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
         "flight_id": 20222,
-        "customer_code": "opodo",
+        "customer_code": "opocom",
         "passengers": {
             "adults": 2,
             "children": 0,
@@ -263,7 +263,7 @@ import (
         "net/http"
 )
 
-payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
+payload := []byte(`{ "flight_id": 20222, "customer_code": "opocom", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`)
         req, _ = http.NewRequest(
                 "POST",
                 "https://booking-api.citizenplane.com/v1/requests",
@@ -293,7 +293,7 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers":
     "price": 278.46,
     "infant_price": null,
     "cc_fee": 0.02,
-    "customer_code": "opodo",
+    "customer_code": "opocom",
     "created_at": "2018-10-16T15:02:00.000Z",
     "flight": {
         "id": 20222,
@@ -338,7 +338,7 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opodo", "passengers":
       "email": "support@odopo.com",
       "is_company": true,
       "company_codes": [
-        "opodo"
+        "opocom"
       ],
       "verified": true,
       "phonenumber": "+33170917575",
@@ -372,7 +372,7 @@ This endpoint creates a booking request on a flight (identified by its id). A bo
 Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 flight_id | *integer* | **required** | The flight id (see `/flights`).
-customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Only used with companies making requests through an aggregator (can be "govoyages" or "kiwi", for example). Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
+customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Only used with companies making requests through an aggregator (can be "govoyagesfr" for GoVoyages.fr, "opocom" for Opodo.com or "kiwicom" for Kiwi.com, for example). Make sure your customer code is recognized in our system before making a request. If you're making a request with a customer that does not have an identification code, do not add this field.
 passengers | *object* | **required** | An object containing the passenger count breakdown by age for this booking request. <a href="#request-passengers-info">See child arguments</a>.
 
 <br/>
@@ -534,7 +534,7 @@ t, err := token.New(params)
 ```shell
 curl POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'authorization: {your_api_token}' -d '{
   "request_id": 19,
-  "customer_code": "opodo",
+  "customer_code": "opocom",
   "external_id": "ABC123",
   "first_name": "John",
   "last_name": "Doe",
@@ -589,7 +589,7 @@ const createBooking = async () => {
       json: true,
       body: {
         "request_id": 19,
-        "customer_code": "opodo",
+        "customer_code": "opocom",
         "external_id": "ABC123",
         "first_name": "John",
         "last_name": "Doe",
@@ -642,7 +642,7 @@ require 'json'
 
 payload = {
   :request_id => 19,
-  :customer_code => "opodo",
+  :customer_code => "opocom",
   :external_id => "ABC123",
   :first_name => "John",
   :last_name => "Doe",
@@ -692,7 +692,7 @@ r = requests.post('https://booking-api.citizenplane.com/v1/requests', headers={
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'
     }, json={
       "request_id": 19,
-      "customer_code": "opodo",
+      "customer_code": "opocom",
       "external_id": "ABC123",
       "first_name": "John",
       "last_name": "Doe",
@@ -744,7 +744,7 @@ import (
 
 payload = []byte(`{
             "request_id": 19,
-            "customer_code": "opodo",
+            "customer_code": "opocom",
             "external_id": "123ABC",
             "first_name": "John",
             "last_name": "Doe",
@@ -894,7 +894,7 @@ payload = []byte(`{
       "email": "support@odopo.com",
       "is_company": true,
       "company_codes": [
-        "opodo"
+        "opocom"
       ],
       "verified": true,
       "phonenumber": "+33170917575",
@@ -934,7 +934,7 @@ Parameter | Type | Status | Description
 --------- | ---- | ------ | -----------
 request_id | *integer* | **required** | The request id (see `/requests`).
 external_id | *string* | *optional* | The id used on your side to identify the booking. This field is optional, though highly recommended in case we need to retrieve a booking in your system.
-customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you're making a request with a customer that does not have an identification code, do not add this field but refer to *customer_data*.
+customer_code | *string* | *optional* | A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request (for instance "opocom" is one of the codes used to identify Opodo). Information saved in our system will be used for invoicing. If you're making a request with a customer that does not have an identification code, do not add this field but refer to *customer_data*.
 customer_data | *object* | *optional* | If the customer is unrecognized in our database, use this field to send information relative to the customer. This information will be used for invoicing. This field is required if *customer_code* is left empty. <a href="#booking-customer-data">See child arguments</a>.
 first_name | *string* | **required** | The booker's first name.
 last_name | *string* | **required** | The booker's last name.
