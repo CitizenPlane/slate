@@ -437,7 +437,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl -X POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "flight_id": 20222,
-  "customer_code": "opodo",
+  "customer_code": "opocom",
   "passengers": {
     "adults": 2,
     "children": 0,
@@ -457,7 +457,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
-        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opodo"</span><span class="p">,</span>
+        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opocom"</span><span class="p">,</span>
         <span class="s2">"passengers"</span><span class="p">:</span> <span class="p">{</span>
           <span class="s2">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
           <span class="s2">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -475,7 +475,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:flight_id</span> <span class="o">=&gt;</span> <span class="mi">20222</span><span class="p">,</span>
-  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s1">'opodo'</span><span class="p">,</span>
+  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s1">'opocom'</span><span class="p">,</span>
   <span class="ss">:passengers</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="ss">:adults</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
     <span class="ss">:children</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
@@ -490,7 +490,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
         <span class="s">"flight_id"</span><span class="p">:</span> <span class="mi">20222</span><span class="p">,</span>
-        <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opodo"</span><span class="p">,</span>
+        <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opocom"</span><span class="p">,</span>
         <span class="s">"passengers"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s">"adults"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
             <span class="s">"children"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -505,7 +505,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
         </span><span class="s">"net/http"</span><span class="x">
 </span><span class="p">)</span><span class="x">
 
-</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "customer_code": "opodo", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
+</span><span class="n">payload</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{ "flight_id": 20222, "customer_code": "opocom", "passengers": { "adults": 2, "children": 0, "infants": 0 } }`</span><span class="p">)</span><span class="x">
         </span><span class="n">req</span><span class="p">,</span><span class="x"> </span><span class="n">_</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="x">
                 </span><span class="s">"POST"</span><span class="p">,</span><span class="x">
                 </span><span class="s">"https://booking-api.citizenplane.com/v1/requests"</span><span class="p">,</span><span class="x">
@@ -533,7 +533,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">278.46</span><span class="p">,</span><span class="w">
     </span><span class="s2">"infant_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"cc_fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"customer_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opodo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customer_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"opocom"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-16T15:02:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"flight"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20222</span><span class="p">,</span><span class="w">
@@ -578,7 +578,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"support@odopo.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"is_company"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"company_codes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"opodo"</span><span class="w">
+        </span><span class="s2">"opocom"</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33170917575"</span><span class="p">,</span><span class="w">
@@ -621,7 +621,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 <td>customer_code</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>A string used to identify the customer making this reservation. Only used with companies making requests through an aggregator (can be &quot;govoyages&quot; or &quot;kiwi&quot;, for example). Make sure your customer code is recognized in our system before making a request. If you&#39;re making a request with a customer that does not have an identification code, do not add this field.</td>
+<td>A string used to identify the customer making this reservation. Only used with companies making requests through an aggregator (can be &quot;govoyagesfr&quot; for GoVoyages.fr, &quot;opocom&quot; for Opodo.com or &quot;kiwicom&quot; for Kiwi.com, for example). Make sure your customer code is recognized in our system before making a request. If you&#39;re making a request with a customer that does not have an identification code, do not add this field.</td>
 </tr>
 <tr>
 <td>passengers</td>
@@ -770,7 +770,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 </blockquote>
 <pre class="highlight shell tab-shell"><code>curl POST --header <span class="s1">'Content-Type: application/json'</span> --header <span class="s1">'Accept: application/json'</span> --header <span class="s1">'authorization: {your_api_token}'</span> -d <span class="s1">'{
   "request_id": 19,
-  "customer_code": "opodo",
+  "customer_code": "opocom",
   "external_id": "ABC123",
   "first_name": "John",
   "last_name": "Doe",
@@ -822,7 +822,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opodo"</span><span class="p">,</span>
+        <span class="s2">"customer_code"</span><span class="p">:</span> <span class="s2">"opocom"</span><span class="p">,</span>
         <span class="s2">"external_id"</span><span class="p">:</span> <span class="s2">"ABC123"</span><span class="p">,</span>
         <span class="s2">"first_name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
         <span class="s2">"last_name"</span><span class="p">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
@@ -872,7 +872,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">:request_id</span> <span class="o">=&gt;</span> <span class="mi">19</span><span class="p">,</span>
-  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s2">"opodo"</span><span class="p">,</span>
+  <span class="ss">:customer_code</span> <span class="o">=&gt;</span> <span class="s2">"opocom"</span><span class="p">,</span>
   <span class="ss">:external_id</span> <span class="o">=&gt;</span> <span class="s2">"ABC123"</span><span class="p">,</span>
   <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
@@ -919,7 +919,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
     <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJzYW5kYm94IjoiZmFsc2UiLCJpYXQiOjE1Mzg3NTg3NzZ9.78oRovu8MJxzigSPtk8gLeJ2QhF07VHvD0Xo1t9YqKI'</span>
     <span class="p">},</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
       <span class="s">"request_id"</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-      <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opodo"</span><span class="p">,</span>
+      <span class="s">"customer_code"</span><span class="p">:</span> <span class="s">"opocom"</span><span class="p">,</span>
       <span class="s">"external_id"</span><span class="p">:</span> <span class="s">"ABC123"</span><span class="p">,</span>
       <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
       <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span><span class="p">,</span>
@@ -968,7 +968,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
 
 </span><span class="n">payload</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{
             "request_id": 19,
-            "customer_code": "opodo",
+            "customer_code": "opocom",
             "external_id": "123ABC",
             "first_name": "John",
             "last_name": "Doe",
@@ -1116,7 +1116,7 @@ curl <span class="s2">"https://booking-api.citizenplane.com/v1/flights"</span> <
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"support@odopo.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"is_company"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"company_codes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"opodo"</span><span class="w">
+        </span><span class="s2">"opocom"</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33170917575"</span><span class="p">,</span><span class="w">
@@ -1168,7 +1168,7 @@ To generate a token, you&#39;ll need to install Stripe&#39;s package and uses an
 <td>customer_code</td>
 <td><em>string</em></td>
 <td><em>optional</em></td>
-<td>A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request. Information saved in our system will be used for invoicing. If you&#39;re making a request with a customer that does not have an identification code, do not add this field but refer to <em>customer_data</em>.</td>
+<td>A string used to identify the customer making this reservation. Make sure your customer code is recognized in our system before making a request (for instance &quot;opocom&quot; is one of the codes used to identify Opodo). Information saved in our system will be used for invoicing. If you&#39;re making a request with a customer that does not have an identification code, do not add this field but refer to <em>customer_data</em>.</td>
 </tr>
 <tr>
 <td>customer_data</td>
