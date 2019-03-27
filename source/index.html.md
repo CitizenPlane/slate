@@ -24,11 +24,19 @@ search: true
 
 <a href="https://citizenplane.com/" target="_blank">CitizenPlane</a> is a software company that connects travel agencies and metasearches to air content providers. Our REST API allows OTAs to search within our stock of open flights, create bookings and process payments.
 
+## Content
+
+CitizenPlane sells one-leg flights from multiple supplier for a total stock of more than 50,000 seats from several hundreds suppliers.
+
+## API details
+
 The default API endpoint is <a href="https://booking-api.citizenplane.com" target="_blank"> booking-api.citizenplane.com</a>. JSON is returned by all API responses, including errors.
 
-To make the API as explorable as possible, accounts have test and live API tokens. To get your token, contact us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.
-
 If you wish to test the different endpoints detailed below, we have a dedicated page allowing you to perform requests with your parameters. An API token will be required for each call. To test our endpoints, <a href="https://booking-api.citizenplane.com/documentation" target="_blank">click here</a>.
+
+## Tokens
+
+To make the API as explorable as possible, accounts have test and live API tokens. To get your token, contact us at <a href="mailto:tech@citizenplane.com" target="_blank">tech@citizenplane.com</a>.
 
 <aside class ="notice">Current API version is 1.1. Therefore, every endpoint has /v1 appended to its url.</aside>
 
@@ -120,8 +128,8 @@ client := &http.Client{}
       "flight_number": "5O7892",
       "origin": "CDG",
       "destination": "PMI",
+      "via_airport": null,
       "available_seats": 20,
-      "organization_name": "Demo",
       "departure_date": "2018-11-29T10:00:00.000Z",
       "arrival_date": "2018-11-29T16:00:00.000Z",
       "airline": {
@@ -154,7 +162,7 @@ client := &http.Client{}
 }
 ```
 
-This endpoint retrieves a list of flights in CitizenPlane's stock. Flights returned by the API are identified by a unique ID that will be needed for the `/requests` endpoint.
+This endpoint retrieves a list of flights in CitizenPlane's stock. Flights returned by the API are identified by a unique ID that will be needed for the `/requests` endpoint.Roundtrips, stopovers and multiple currencies are not currently supported. All flights are one-leg only and are non-refundable, non-exchangeable with no flex fares.
 
 ### HTTP request
 
@@ -310,9 +318,7 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opocom", "passengers"
             "country_name": "Espagne",
             "timezone": "Europe/Madrid"
         },
-        "organization": {
-          "name": "Demo"
-        },
+        "via_airport": null,
         "departure_date": "2018-10-29T10:00:00.000Z",
         "arrival_date": "2018-10-29T16:00:00.000Z",
         "airline": {
@@ -866,6 +872,7 @@ payload = []byte(`{
       "country_name": "Espagne",
       "timezone": "Europe/Madrid"
     },
+    "via_airport": null,
     "departure_date": "2018-11-29T09:00:00.000Z",
     "arrival_date": "2018-11-29T15:00:00.000Z",
     "airline": {
@@ -874,9 +881,6 @@ payload = []byte(`{
         "name": "Transavia",
         "iata_code": "HV"
       }
-    }
-    "organization": {
-      "name": "Demo"
     },
     "cabin_class": "economy",
     "booking_class": "Y",
