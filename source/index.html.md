@@ -130,10 +130,11 @@ client := &http.Client{}
       "destination": "PMI",
       "via_airport": null,
       "available_seats": 20,
-      "departure_date": "2018-11-29T10:00:00.000Z",
-      "arrival_date": "2018-11-29T16:00:00.000Z",
+      "departure_date": "2018-11-29 10:00:00",
+      "arrival_date": "2018-11-29 16:00:00",
       "airline": {
-          "name": "CitizenPlane",
+          "name": "Transavia",
+          "iata_code": "HV",
           "operated_by": {
             "name": "Transavia",
             "iata_code": "HV"
@@ -319,10 +320,11 @@ payload := []byte(`{ "flight_id": 20222, "customer_code": "opocom", "passengers"
             "timezone": "Europe/Madrid"
         },
         "via_airport": null,
-        "departure_date": "2018-10-29T10:00:00.000Z",
-        "arrival_date": "2018-10-29T16:00:00.000Z",
+        "departure_date": "2018-10-29 10:00:00",
+        "arrival_date": "2018-10-29 16:00:00",
         "airline": {
-            "name": "CitizenPlane",
+            "name": "Transavia",
+            "iata_code": "HV",
             "operated_by": {
               "name": "Transavia",
               "iata_code": "HV"
@@ -873,10 +875,11 @@ payload = []byte(`{
       "timezone": "Europe/Madrid"
     },
     "via_airport": null,
-    "departure_date": "2018-11-29T09:00:00.000Z",
-    "arrival_date": "2018-11-29T15:00:00.000Z",
+    "departure_date": "2018-11-29 09:00:00",
+    "arrival_date": "2018-11-29 15:00:00",
     "airline": {
-      "name": "CitizenPlane",
+      "name": "Transavia",
+      "iata_code": "HV",
       "operated_by": {
         "name": "Transavia",
         "iata_code": "HV"
