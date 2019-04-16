@@ -26,7 +26,7 @@ search: true
 
 ## Content
 
-CitizenPlane sells one-leg flights from multiple supplier for a total stock of more than 50,000 seats from several hundreds suppliers.
+CitizenPlane sells one-leg flights from multiple supplier for a total stock of more than 400,000 seats from several hundreds suppliers.
 
 ## API details
 
